@@ -122,6 +122,12 @@ module.exports = {
       context: '.',
       manifest: './build/vendor-manifest.json',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      S_API_BASE: JSON.stringify(
+        isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
+      ),
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),

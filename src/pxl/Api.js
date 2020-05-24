@@ -1,7 +1,9 @@
 import store from 'store/index'
-import { login } from 'actions'
+import { login, logout } from 'actions'
 import { toaster } from 'evergreen-ui'
-const API_BASE = 'http://localhost:3000'
+//const API_BASE = 'http://localhost:3000'
+//const API_BASE = 'https://api.pxl.blue'
+const API_BASE = S_API_BASE
 class PxlApi {
   constructor() {
     this.session = ''
