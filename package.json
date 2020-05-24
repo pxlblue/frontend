@@ -1,0 +1,50 @@
+{
+  "name": "pxl-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn start:dev:watch",
+    "start:dev": "yarn build:dev:vendor && webpack-dev-server",
+    "start:dev:watch": "yarn build:dev:vendor && webpack-dev-server --watch",
+    "build:dev": "yarn build:dev:vendor && webpack",
+    "build:dev:watch": "yarn build:dev:vendor && webpack --watch",
+    "build:dev:vendor": "webpack --config=vendor.webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production yarn build:prod:vendor && webpack --mode=production",
+    "build:prod:watch": "cross-env NODE_ENV=production yarn build:prod:vendor && webpack --mode=production --watch",
+    "build:prod:vendor": "cross-env NODE_ENV=production webpack --mode=production --config=vendor.webpack.config.js",
+    "test": "echo Test placeholder"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "evergreen-ui": "^4.27.4",
+    "history": "^4.10.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
+    "@babel/plugin-syntax-class-properties": "^7.8.3",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "connected-react-router": "^6.8.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.5.3",
+    "fast-sass-loader": "^1.5.0",
+    "file-loader": "^6.0.0",
+    "formik": "^2.1.4",
+    "html-webpack-dll-file-plugin": "^1.0.4",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
