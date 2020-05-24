@@ -14,6 +14,8 @@ export default class Index extends PureComponent {
       <Pane>
         <Pane
           background={defaultTheme.colors.background.purpleTint}
+          borderTop={'1px solid ' + defaultTheme.colors.border.default}
+          borderBottom={'1px solid ' + defaultTheme.colors.border.default}
           marginLeft={majorScale(-11)}
           marginRight={majorScale(-11)}
           marginTop={majorScale(-3)}
