@@ -47,6 +47,9 @@ class Navbar extends PureComponent {
           >
             Domains
           </Tab>
+          <Tab is="a" href="https://api.pxl.blue/discord" target="_blank">
+            Discord
+          </Tab>
         </TabNavigation>
         <Pane flexGrow={1} />
         <Pane marginRight={majorScale(10)} marginBottom={7}>
@@ -77,6 +80,24 @@ class Navbar extends PureComponent {
               >
                 Account
               </Tab>
+              {profile.moderator && (
+                <Tab
+                  is={Link}
+                  to="/mod"
+                  isSelected={pathname.match(/^\/mod/gi) && true}
+                >
+                  Moderator
+                </Tab>
+              )}
+              {profile.admin && (
+                <Tab
+                  is={Link}
+                  to="/admin"
+                  isSelected={pathname.match(/^\/admin/gi) && true}
+                >
+                  Admin
+                </Tab>
+              )}
             </TabNavigation>
           )}
         </Pane>

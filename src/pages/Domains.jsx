@@ -6,7 +6,7 @@ export default class Domains extends PureComponent {
     return (
       <Pane>
         <Heading size={800}>Domains</Heading>
-        <Text>This page is not complete.</Text>
+        <Text>soon™️</Text>
       </Pane>
     )
   }
