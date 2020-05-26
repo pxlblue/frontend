@@ -30,7 +30,7 @@ export default class Index extends PureComponent {
         <Pane marginTop={majorScale(1)}>
           <Alert intent="warning">
             Some previous Mirage users may be eligible for free access for 3
-            months. Join the Discord and DM clearing for more information
+            months. Join the Discord and DM relative for more information
           </Alert>
           <Alert intent="none" marginTop={majorScale(2)}>
             Currently registrations are closed. Join the Discord to get an
