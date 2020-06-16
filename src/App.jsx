@@ -12,6 +12,8 @@ import Signup from 'pages/Signup'
 
 import AccountIndex from 'pages/account/Index'
 
+import AdminIndex from 'pages/admin/Index'
+
 const mapRouteStateToProps = (state) => ({
   profile: state.root.profile,
   loggedIn: state.root.loggedIn,
@@ -37,6 +39,52 @@ const LoggedInRoute = connect(mapRouteStateToProps)(
             //toastr.error('Error', 'Please login before accessing this page.')
             toaster.danger('Not logged in', {
               description: 'Please login before accessing this page.',
+            })
+            return <Redirect to="/" />
+          }}
+        />
+      )
+    }
+    return (
+      <Route
+        {...rest}
+        render={(props) => {
+          return (
+            <Component
+              {...props}
+              profile={profile}
+              loggedIn={loggedIn}
+              {...rest}
+            />
+          )
+        }}
+      />
+    )
+  }
+)
+
+const AdminRoute = connect(mapRouteStateToProps)(
+  ({ component: Component, profile, loggedIn, ...rest }) => {
+    if (!loggedIn) {
+      return (
+        <Route
+          {...rest}
+          render={(props) => {
+            toaster.danger('Not logged in', {
+              description: 'Please login before accessing this page.',
+            })
+            return <Redirect to="/" />
+          }}
+        />
+      )
+    }
+    if (!profile.admin) {
+      return (
+        <Route
+          {...rest}
+          render={(props) => {
+            toaster.danger('Not an admin', {
+              description: 'You do not have permission to access this page',
             })
             return <Redirect to="/" />
           }}
@@ -109,6 +157,8 @@ class App extends PureComponent {
             <Route exact path="/signup" component={Signup} />
 
             <LoggedInRoute path="/account" component={AccountIndex} />
+
+            <AdminRoute path="/admin" component={AdminIndex} />
           </Switch>
         </Pane>
       </ConnectedRouter>
