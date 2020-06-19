@@ -9,7 +9,6 @@ const getEnv = () =>
 
 const isDev = () => getEnv() === 'development'
 module.exports = {
-  mode: 'development',
   entry: {
     bundle: './src/index.jsx',
   },
