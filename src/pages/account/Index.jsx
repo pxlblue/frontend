@@ -14,6 +14,8 @@ import { Link, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import AccountShareX from './ShareX'
+import AccountDiscord from './Discord'
+
 import AccountInvites from './Invites'
 import AccountHome from './Home'
 
@@ -94,6 +96,13 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/discord"
+              isSelected={pathname.match(/^\/account\/discord$/gi) && true}
+            >
+              Discord
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/sharex"
               isSelected={pathname.match(/^\/account\/sharex$/gi) && true}
             >
@@ -104,6 +113,8 @@ class AccountIndex extends PureComponent {
             <Switch>
               <Route exact path="/account" component={AccountHome} />
               <Route exact path="/account/invites" component={AccountInvites} />
+              <Route exact path="/account/discord" component={AccountDiscord} />
+
               <Route exact path="/account/sharex" component={AccountShareX} />
             </Switch>
           </Pane>

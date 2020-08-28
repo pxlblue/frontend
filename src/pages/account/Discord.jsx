@@ -5,29 +5,26 @@ const mapStateToProps = (state) => ({
   profile: state.root.profile,
   session: state.root.session,
 })
-class AccountShareX extends PureComponent {
+class AccountDiscord extends PureComponent {
   render() {
     const { session } = this.props
     return (
       <Pane display="flex" flexDirection="column">
-        <Text>ShareX config generator</Text>
         <Text>
-          More domains will be added as time goes on. Check Discord for
-          announcements on new domains.
+          Discord integration is not complete yet, but to get your member role
+          you may DM relative.
         </Text>
         <Button
           appearance="primary"
           is="a"
-          href={`https://api.pxl.blue/users/@me/generate_sharex_config?auth=${encodeURIComponent(
-            session
-          )}`}
+          href={`https://api.pxl.blue/discord`}
           target="_blank"
         >
-          Download Config
+          Join discord
         </Button>
       </Pane>
     )
   }
 }
 
-export default connect(mapStateToProps)(AccountShareX)
+export default connect(mapStateToProps)(AccountDiscord)
