@@ -110,6 +110,7 @@ class PxlApi {
 
       return store.dispatch(logout())
     }
+    store.dispatch(login(this.session, res.user))
     return res.user
   }
 

@@ -16,6 +16,10 @@ const mapStateToProps = (state) => ({
   session: state.root.session,
 })
 class AccountMail extends PureComponent {
+  constructor() {
+    this.resyncPassword = this.resyncPassword.bind(this)
+    this.createMailbox = this.createMailbox.bind(this)
+  }
   async resyncPassword() {
     const res = await pxlApi.http_post('/mail/resync_password', true)
     if (!res.success) {
@@ -35,6 +39,7 @@ class AccountMail extends PureComponent {
       return this.forceUpdate()
     }
     this.forceUpdate()
+    await pxlApi.getMe()
     toaster.success(res.message)
   }
   render() {
