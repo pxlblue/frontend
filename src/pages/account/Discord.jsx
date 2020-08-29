@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Pane, Text, Button } from 'evergreen-ui'
+import { Pane, Text, Button, minorScale } from 'evergreen-ui'
 import { connect } from 'react-redux'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
@@ -14,14 +14,16 @@ class AccountDiscord extends PureComponent {
           Discord integration is not complete yet, but to get your member role
           you may DM relative.
         </Text>
-        <Button
-          appearance="primary"
-          is="a"
-          href={`https://api.pxl.blue/discord`}
-          target="_blank"
-        >
-          Join discord
-        </Button>
+        <Pane marginTop={minorScale(1)}>
+          <Button
+            appearance="primary"
+            is="a"
+            href={`https://api.pxl.blue/discord`}
+            target="_blank"
+          >
+            Join discord
+          </Button>
+        </Pane>
       </Pane>
     )
   }

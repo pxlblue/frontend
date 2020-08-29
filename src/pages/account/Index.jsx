@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 
 import AccountShareX from './ShareX'
 import AccountDiscord from './Discord'
-
+import AccountMail from './Mail'
 import AccountInvites from './Invites'
 import AccountHome from './Home'
 
@@ -108,12 +108,20 @@ class AccountIndex extends PureComponent {
             >
               ShareX
             </SidebarTab>
+            <SidebarTab
+              is={Link}
+              to="/account/mail"
+              isSelected={pathname.match(/^\/account\/mail$/gi) && true}
+            >
+              E-mail
+            </SidebarTab>
           </TabNavigation>
           <Pane marginLeft={majorScale(4)} width={'100%'}>
             <Switch>
               <Route exact path="/account" component={AccountHome} />
               <Route exact path="/account/invites" component={AccountInvites} />
               <Route exact path="/account/discord" component={AccountDiscord} />
+              <Route exact path="/account/mail" component={AccountMail} />
 
               <Route exact path="/account/sharex" component={AccountShareX} />
             </Switch>

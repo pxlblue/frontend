@@ -50,6 +50,20 @@ class Navbar extends PureComponent {
           <Tab is="a" href="https://api.pxl.blue/discord" target="_blank">
             Discord
           </Tab>
+          {loggedIn &&
+            profile &&
+            profile.mailAccess &&
+            profile.mailAccountCreated && (
+              <Tab
+                is="a"
+                href={`https://pxl.so?_user=${encodeURIComponent(
+                  profile.username.toLowerCase()
+                )}`}
+                target="_blank"
+              >
+                Webmail
+              </Tab>
+            )}
         </TabNavigation>
         <Pane flexGrow={1} />
         <Pane marginRight={majorScale(10)} marginBottom={7}>

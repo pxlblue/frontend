@@ -113,6 +113,13 @@ class PxlApi {
     return res.user
   }
 
+  async logout() {
+    localStorage.removeItem('loggedIn')
+    localStorage.removeItem('user')
+    toaster.danger('logged out successfully')
+    return store.dispatch(logout())
+  }
+
   async getInvites() {
     let res = await this.http_get('/users/@me/invites', true)
     if (!res.success) {

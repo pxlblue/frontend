@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Pane, Text, Button } from 'evergreen-ui'
+import { Pane, Text, Button, minorScale } from 'evergreen-ui'
 import { connect } from 'react-redux'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
@@ -15,16 +15,18 @@ class AccountShareX extends PureComponent {
           More domains will be added as time goes on. Check Discord for
           announcements on new domains.
         </Text>
-        <Button
-          appearance="primary"
-          is="a"
-          href={`https://api.pxl.blue/users/@me/generate_sharex_config?auth=${encodeURIComponent(
-            session
-          )}`}
-          target="_blank"
-        >
-          Download Config
-        </Button>
+        <Pane marginTop={minorScale(1)}>
+          <Button
+            appearance="primary"
+            is="a"
+            href={`https://api.pxl.blue/users/@me/generate_sharex_config?auth=${encodeURIComponent(
+              session
+            )}`}
+            target="_blank"
+          >
+            Download Config
+          </Button>
+        </Pane>
       </Pane>
     )
   }

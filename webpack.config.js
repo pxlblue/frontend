@@ -3,19 +3,22 @@ const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = (env, argv) => {
   const getEnv = () =>
     argv.mode === 'development' ? 'development' : 'production'
   const isDev = () => getEnv() === 'development'
+  console.log('(pxl) building in', getEnv())
 
   return {
+    mode: getEnv(),
     entry: {
       bundle: './src/index.jsx',
     },
     output: {
-      filename: 'js/[name].js',
-      chunkFilename: 'js/[name].js',
+      filename: 'js/[name].[hash].js',
+      chunkFilename: 'js/[name].[chunkhash].js',
       path: path.resolve(__dirname, 'build'),
       publicPath: '/',
     },
@@ -100,19 +103,26 @@ module.exports = (env, argv) => {
     },
     optimization: {
       splitChunks: {
+        chunks: 'all',
+
         cacheGroups: {
-          critical: {
+          /*critical: {
             name: 'critical',
             test: /(.+)?(critical)(.+)?\.(c|sa|sc)ss$/,
             chunks: 'all',
             enforce: true,
             priority: 1,
-          },
+          },*/
           styles: {
             name: 'styles',
             test: /\.(c|sa|sc)ss$/,
             chunks: 'all',
             enforce: true,
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
           },
         },
       },
@@ -123,7 +133,7 @@ module.exports = (env, argv) => {
         manifest: './build/vendor-manifest.json',
       }),
       new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        //'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         S_API_BASE: JSON.stringify(
           isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
         ),
@@ -135,6 +145,13 @@ module.exports = (env, argv) => {
         title: 'pxl.blue',
         appMountId: 'app-mount',
         template: path.resolve(__dirname, 'src', 'tmpl', 'index.html'),
+      }),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true,
+        runtimeCaching: [
+          { urlPattern: new RegExp('/'), handler: 'StaleWhileRevalidate' },
+        ],
       }),
     ],
   }
