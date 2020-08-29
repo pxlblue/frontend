@@ -17,6 +17,7 @@ const mapStateToProps = (state) => ({
 })
 class AccountMail extends PureComponent {
   constructor() {
+    super()
     this.resyncPassword = this.resyncPassword.bind(this)
     this.createMailbox = this.createMailbox.bind(this)
   }
