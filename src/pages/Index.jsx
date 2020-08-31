@@ -16,7 +16,7 @@ export default class Index extends PureComponent {
           <Pane padding={majorScale(11)}>
             <Heading size={900}>pxl.blue</Heading>
             <Heading size={600} marginTop={majorScale(1)}>
-              A private image uploader
+              A private image uploader and email server
             </Heading>
           </Pane>
         </Pane>

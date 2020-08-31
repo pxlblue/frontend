@@ -17,10 +17,13 @@ export default class PaginatedTable extends Component {
     response: null,
     page: 0,
   }
+  static defaultProps = {
+    order: 'ASC',
+  }
   async fetchData(page) {
-    const { endpoint, limit } = this.props
+    const { endpoint, limit, order } = this.props
     const res = await pxlApi.http_get(
-      `${endpoint}?limit=${limit}&page=${page}`,
+      `${endpoint}?limit=${limit}&page=${page}&order=${order}`,
       true
     )
     return res
@@ -83,7 +86,12 @@ export default class PaginatedTable extends Component {
             {data.map((row) => (
               <Table.Row key={row.id}>
                 {schema.map((r) => (
-                  <Table.TextCell>{row[r.member]}</Table.TextCell>
+                  <Table.TextCell>
+                    {r.type && r.type === 'code' && (
+                      <Code children={row[r.member]} />
+                    )}
+                    {(!r.type || r.type !== 'code') && row[r.member]}
+                  </Table.TextCell>
                 ))}
               </Table.Row>
             ))}

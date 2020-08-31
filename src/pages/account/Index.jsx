@@ -17,6 +17,8 @@ import AccountShareX from './ShareX'
 import AccountDiscord from './Discord'
 import AccountMail from './Mail'
 import AccountInvites from './Invites'
+import AccountImageNuke from './ImageNuke'
+import AccountImages from './Images'
 import AccountHome from './Home'
 
 const mapStateToProps = (state) => ({
@@ -79,50 +81,77 @@ class AccountIndex extends PureComponent {
           marginTop={majorScale(4)}
           marginLeft={majorScale(2)}
         >
-          <TabNavigation width={'20%'}>
+          <TabNavigation width={'25%'}>
             <SidebarTab
               is={Link}
               to="/account"
-              isSelected={pathname.match(/^\/account$/gi) && true}
+              isSelected={pathname.match(/^\/account\/?$/gi) && true}
             >
               Account
             </SidebarTab>
             <SidebarTab
               is={Link}
-              to="/account/invites"
-              isSelected={pathname.match(/^\/account\/invites$/gi) && true}
-            >
-              Invites
-            </SidebarTab>
-            <SidebarTab
-              is={Link}
               to="/account/discord"
-              isSelected={pathname.match(/^\/account\/discord$/gi) && true}
+              isSelected={pathname.match(/^\/account\/discord\/?$/gi) && true}
             >
               Discord
             </SidebarTab>
             <SidebarTab
               is={Link}
-              to="/account/sharex"
-              isSelected={pathname.match(/^\/account\/sharex$/gi) && true}
+              to="/account/mail"
+              isSelected={pathname.match(/^\/account\/mail\/?$/gi) && true}
             >
-              ShareX
+              E-mail
+            </SidebarTab>
+
+            <Heading size={300}>Images</Heading>
+            <SidebarTab
+              is={Link}
+              to="/account/images"
+              isSelected={pathname.match(/^\/account\/images\/?$/gi) && true}
+            >
+              Images
             </SidebarTab>
             <SidebarTab
               is={Link}
-              to="/account/mail"
-              isSelected={pathname.match(/^\/account\/mail$/gi) && true}
+              to="/account/images/nuke"
+              isSelected={
+                pathname.match(/^\/account\/images\/nuke\/?$/gi) && true
+              }
             >
-              E-mail
+              Nuke
+            </SidebarTab>
+
+            <Heading size={300}>Invites</Heading>
+            <SidebarTab
+              is={Link}
+              to="/account/invites"
+              isSelected={pathname.match(/^\/account\/invites\/?$/gi) && true}
+            >
+              Invites
+            </SidebarTab>
+
+            <Heading size={300}>Upload</Heading>
+            <SidebarTab
+              is={Link}
+              to="/account/sharex"
+              isSelected={pathname.match(/^\/account\/sharex\/?$/gi) && true}
+            >
+              ShareX
             </SidebarTab>
           </TabNavigation>
           <Pane marginLeft={majorScale(4)} width={'100%'}>
             <Switch>
               <Route exact path="/account" component={AccountHome} />
+              <Route exact path="/account/images" component={AccountImages} />
+              <Route
+                exact
+                path="/account/images/nuke"
+                component={AccountImageNuke}
+              />
               <Route exact path="/account/invites" component={AccountInvites} />
               <Route exact path="/account/discord" component={AccountDiscord} />
               <Route exact path="/account/mail" component={AccountMail} />
-
               <Route exact path="/account/sharex" component={AccountShareX} />
             </Switch>
           </Pane>
