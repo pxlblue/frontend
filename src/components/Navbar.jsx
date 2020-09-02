@@ -36,7 +36,7 @@ class Navbar extends PureComponent {
         >
           pxl
         </Heading>
-        <TabNavigation marginLeft={majorScale(4)} marginBottom={7}>
+        <TabNavigation marginLeft={majorScale(4)} marginBottom={9}>
           <Tab is={Link} to="/" isSelected={pathname.match(/^\/$/gi) && true}>
             Home
           </Tab>
@@ -66,7 +66,7 @@ class Navbar extends PureComponent {
             )}
         </TabNavigation>
         <Pane flexGrow={1} />
-        <Pane marginRight={majorScale(10)} marginBottom={7}>
+        <Pane marginRight={majorScale(10)} marginBottom={9}>
           {!loggedIn && (
             <TabNavigation marginLeft={majorScale(4)}>
               <Tab

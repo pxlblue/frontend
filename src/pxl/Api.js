@@ -153,6 +153,17 @@ class PxlApi {
       }
     }
   }
+
+  async getDomains() {
+    let res = await this.http_get('/domains', false)
+    if (!res.success) {
+      toaster.danger('Failed to get domains list', {
+        description: res.errors.join('\n'),
+      })
+      return []
+    }
+    return res.domains
+  }
 }
 
 const pxlApi = new PxlApi()
