@@ -20,6 +20,7 @@ import AccountInvites from './Invites'
 import AccountImageNuke from './ImageNuke'
 import AccountImages from './Images'
 import AccountHome from './Home'
+import AccountRedeem from './Redeem'
 
 const mapStateToProps = (state) => ({
   pathname: state.router.location.pathname,
@@ -98,6 +99,13 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/redeem"
+              isSelected={pathname.match(/^\/account\/redeem\/?$/gi) && true}
+            >
+              Redeem
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/mail"
               isSelected={pathname.match(/^\/account\/mail\/?$/gi) && true}
             >
@@ -153,6 +161,7 @@ class AccountIndex extends PureComponent {
               <Route exact path="/account/discord" component={AccountDiscord} />
               <Route exact path="/account/mail" component={AccountMail} />
               <Route exact path="/account/sharex" component={AccountShareX} />
+              <Route exact path="/account/redeem" component={AccountRedeem} />
             </Switch>
           </Pane>
         </Pane>

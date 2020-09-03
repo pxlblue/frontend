@@ -210,6 +210,11 @@ class AccountMail extends PureComponent {
     if (!profile.mailAccountCreated) {
       return (
         <Pane display="flex" flexDirection="column">
+          <Alert intent="none" marginBottom={majorScale(2)}>
+            <Text>
+              Your mail access expires on {profile.mailAccessExpiresFriendly}
+            </Text>
+          </Alert>
           <Text>
             Creating your mail account will make an account with your pxl
             username and password.
@@ -225,6 +230,11 @@ class AccountMail extends PureComponent {
 
     return (
       <Pane display="flex" flexDirection="column">
+        <Alert intent="none" marginBottom={majorScale(2)}>
+          <Text>
+            Your mail access expires on {profile.mailAccessExpiresFriendly}
+          </Text>
+        </Alert>
         <Alert intent="none">
           <Text>
             Your mail account already exists. Login with your pxl.blue
