@@ -107,7 +107,7 @@ class PxlApi {
       })
       localStorage.removeItem('loggedIn')
       localStorage.removeItem('user')
-
+      this.logout()
       return store.dispatch(logout())
     }
     store.dispatch(login(this.session, res.user))
@@ -117,7 +117,7 @@ class PxlApi {
   async logout() {
     localStorage.removeItem('loggedIn')
     localStorage.removeItem('user')
-    toaster.danger('logged out successfully')
+    toaster.success('logged out successfully')
     return store.dispatch(logout())
   }
 

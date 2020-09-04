@@ -61,7 +61,7 @@ class AccountRedeem extends PureComponent {
     const { profile } = this.props
     return (
       <Pane width={'100%'}>
-        <Heading size={700}>Redeem a Voucher</Heading>
+        <Heading size={800}>Redeem a Voucher</Heading>
 
         <Formik
           initialValues={{
