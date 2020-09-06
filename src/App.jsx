@@ -25,6 +25,8 @@ import AccountIndex from 'pages/account/Index'
 
 import AdminIndex from 'pages/admin/Index'
 
+import styles from './styles/container.scss'
+
 const mapRouteStateToProps = (state) => ({
   profile: state.root.profile,
   loggedIn: state.root.loggedIn,
@@ -210,6 +212,7 @@ class App extends PureComponent {
           marginLeft={majorScale(10)}
           marginRight={majorScale(10)}
           marginTop={majorScale(2)}
+          className={styles.container}
         >
           <Switch>
             <Route exact path="/" component={Index} />

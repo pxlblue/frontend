@@ -107,8 +107,8 @@ class PxlApi {
       })
       localStorage.removeItem('loggedIn')
       localStorage.removeItem('user')
-      this.logout()
-      return store.dispatch(logout())
+      store.dispatch(logout())
+      location.reload()
     }
     store.dispatch(login(this.session, res.user))
     return res.user

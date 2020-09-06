@@ -23,6 +23,8 @@ import AccountHome from './Home'
 import AccountRedeem from './Redeem'
 import AccountSettings from './Settings'
 
+import styles from '../../styles/container.scss'
+
 const mapStateToProps = (state) => ({
   pathname: state.router.location.pathname,
   profile: state.root.profile,
@@ -31,10 +33,13 @@ const mapStateToProps = (state) => ({
 })
 
 class AccountIndex extends PureComponent {
+  constructor() {
+    super()
+  }
   render() {
     const { profile, loggedIn, pathname } = this.props
     return (
-      <Pane>
+      <Pane className={styles.container}>
         <Heading size={800}>Account Dashboard</Heading>
         <Text>Logged in as {profile.username}</Text>
         <Pane display="flex" flexDirection="row" width="100%">
