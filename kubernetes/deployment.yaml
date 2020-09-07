@@ -21,10 +21,12 @@ spec:
         app: frontend
     spec:
       containers:
-        - name: frontend
-          image: gcr.io/pxlblue/frontend:latest
+        - image: gcr.io/pxlblue/frontend
+          imagePullPolicy: Always
+          name: frontend
           ports:
             - containerPort: 80
+              protocol: TCP
 
 ---
 apiVersion: "v1"
