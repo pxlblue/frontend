@@ -7,6 +7,7 @@ import {
   toaster,
   Alert,
   majorScale,
+  Heading,
 } from 'evergreen-ui'
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
@@ -28,35 +29,39 @@ class AccountDiscord extends PureComponent {
     const { profile } = this.props
     return (
       <Pane display="flex" flexDirection="column">
-        {profile && typeof profile.discordId === 'string' && (
-          <Alert intent="none">
-            <Text>
-              Your discord, {profile.discordTag} is already linked. Linking a
-              new account will remove your account's roles in the Discord.
-            </Text>
-          </Alert>
-        )}
-        <Text>
-          Pressing the link button below will begin the process of linking your
-          Discord to your pxl.blue account. Linking your account will
-          automatically join you to the Discord if you were not in it before.
-        </Text>
-        <Pane marginTop={minorScale(1)}>
-          <Button
-            appearance="primary"
-            intent="success"
-            onClick={this.onLinkClicked.bind(this)}
-          >
-            Link discord
-          </Button>
-          <Button
-            marginLeft={majorScale(1)}
-            is="a"
-            href={`https://api.pxl.blue/discord`}
-            target="_blank"
-          >
-            Join discord
-          </Button>
+        <Heading size={800}>Discord</Heading>
+
+        <Pane marginTop={majorScale(2)}>
+          {profile && typeof profile.discordId === 'string' && (
+            <Alert intent="none">
+              <Text>
+                Your discord, {profile.discordTag} is already linked. Linking a
+                new account will remove your account's roles in the Discord.
+              </Text>
+            </Alert>
+          )}
+          <Text marginTop={minorScale(1)}>
+            Pressing the link button below will begin the process of linking
+            your Discord to your pxl.blue account. Linking your account will
+            automatically join you to the Discord if you were not in it before.
+          </Text>
+          <Pane marginTop={majorScale(2)}>
+            <Button
+              appearance="primary"
+              intent="success"
+              onClick={this.onLinkClicked.bind(this)}
+            >
+              Link discord
+            </Button>
+            <Button
+              marginLeft={majorScale(1)}
+              is="a"
+              href={`https://api.pxl.blue/discord`}
+              target="_blank"
+            >
+              Join discord
+            </Button>
+          </Pane>
         </Pane>
       </Pane>
     )
