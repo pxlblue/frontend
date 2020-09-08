@@ -2,8 +2,8 @@ name = "frontend-dev"
 route = "dev.pxl.blue/*"
 type = "webpack"
 workers_dev = false
-account_id = ""
-zone_id = ""
+account_id = "6e8ea52e2c17a072be7e347cd0745a07"
+zone_id = "d2286b4dd900c879c557b313766be46f"
 
 [site]
 bucket = "./build"
@@ -16,7 +16,3 @@ route = "staging.pxl.blue/*"
 [env.production]
 name = "frontend"
 route = "pxl.blue/*"
-kv_namespaces = [
-  { binding = "FOO", id = "0d2ac74b498b48028cb68387c421e233" },
-  { binding = "BAR", id = "0d8c101e168d03c65bddf4ba75150f33" }
-]
