@@ -13,6 +13,6 @@ entry-point = "./"
 name = "frontend-staging"
 route = "staging.pxl.blue/*"
 
-[env.production]
+[env.master]
 name = "frontend"
 route = "pxl.blue/*"
