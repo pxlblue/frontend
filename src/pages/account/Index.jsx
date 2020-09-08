@@ -12,6 +12,7 @@ import {
 } from 'evergreen-ui'
 import { Link, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import classNames from 'classnames'
 
 import AccountShareX from './ShareX'
 import AccountDiscord from './Discord'
@@ -37,6 +38,7 @@ class AccountIndex extends PureComponent {
     super()
   }
   render() {
+    console.log(styles)
     const { profile, loggedIn, pathname } = this.props
     return (
       <Pane className={styles.container}>
@@ -45,7 +47,7 @@ class AccountIndex extends PureComponent {
         <Pane display="flex" flexDirection="row" width="100%">
           <Pane
             elevation={1}
-            width={'20%'}
+            minWidth={'20%'}
             height={80}
             padding={majorScale(2)}
             display="flex"
@@ -63,7 +65,7 @@ class AccountIndex extends PureComponent {
           </Pane>
           <Pane
             elevation={1}
-            width={'20%'}
+            minWidth={'20%'}
             height={80}
             padding={majorScale(2)}
             display="flex"
@@ -87,8 +89,9 @@ class AccountIndex extends PureComponent {
           width={'100%'}
           marginTop={majorScale(4)}
           marginLeft={majorScale(2)}
+          className={classNames(styles['account-container'])}
         >
-          <TabNavigation width={'25%'}>
+          <TabNavigation width={'25%'} className={classNames(styles['tabs'])}>
             <SidebarTab
               is={Link}
               to="/account"
@@ -161,7 +164,11 @@ class AccountIndex extends PureComponent {
               ShareX
             </SidebarTab>
           </TabNavigation>
-          <Pane marginLeft={majorScale(4)} width={'100%'}>
+          <Pane
+            marginLeft={majorScale(4)}
+            width={'100%'}
+            className={classNames(styles['switch'])}
+          >
             <Switch>
               <Route exact path="/account" component={AccountHome} />
               <Route exact path="/account/images" component={AccountImages} />

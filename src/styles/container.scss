@@ -3,4 +3,19 @@
     margin-left: 4px !important;
     margin-right: 4px !important;
   }
+  .account-container {
+    flex-direction: column !important;
+    width: 95% !important;
+  }
+  .tabs {
+    width: 95% !important;
+    margin-left: 4px !important;
+    margin-right: 8px !important;
+  }
+  .switch {
+    margin-left: 4px !important;
+    margin-right: 8px !important;
+    margin-top: 8px !important;
+    margin-bottom: 16px !important;
+  }
 }
