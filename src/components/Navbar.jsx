@@ -28,26 +28,37 @@ class Navbar extends Component {
   constructor() {
     super()
     this.toggleNav = this.toggleNav.bind(this)
+    this.close = this.close.bind(this)
   }
   toggleNav(val) {
     this.setState({ open: typeof val === 'boolean' ? val : !this.state.open })
   }
+  close() {
+    this.toggleNav(false)
+  }
   render() {
     const { pathname, profile, loggedIn } = this.props
     const { open } = this.state
+    const close = this.close
     const leftNav = (
       <TabNavigation
         marginLeft={majorScale(4)}
         marginBottom={9}
         className={styles.tabnav}
       >
-        <Tab is={Link} to="/" isSelected={pathname.match(/^\/$/gi) && true}>
+        <Tab
+          is={Link}
+          to="/"
+          isSelected={pathname.match(/^\/$/gi) && true}
+          onClick={close}
+        >
           Home
         </Tab>
         <Tab
           is={Link}
           to="/domains"
           isSelected={pathname.match(/^\/domains$/gi) && true}
+          onClick={close}
         >
           Domains
         </Tab>
@@ -56,6 +67,7 @@ class Navbar extends Component {
           href="https://api.pxl.blue/discord"
           rel="noopener"
           target="_blank"
+          onClick={close}
         >
           Discord
         </Tab>
@@ -69,6 +81,7 @@ class Navbar extends Component {
                 profile.username.toLowerCase()
               )}`}
               target="_blank"
+              onClick={close}
             >
               Webmail
             </Tab>
@@ -81,6 +94,7 @@ class Navbar extends Component {
           is={Link}
           to="/login"
           isSelected={pathname.match(/^\/login$/gi) && true}
+          onClick={close}
         >
           Login
         </Tab>
@@ -88,6 +102,7 @@ class Navbar extends Component {
           is={Link}
           to="/signup"
           isSelected={pathname.match(/^\/signup$/gi) && true}
+          onClick={close}
         >
           Sign Up
         </Tab>
@@ -98,6 +113,7 @@ class Navbar extends Component {
           is={Link}
           to="/account"
           isSelected={pathname.match(/^\/account/gi) && true}
+          onClick={close}
         >
           Account
         </Tab>
@@ -106,6 +122,7 @@ class Navbar extends Component {
             is={Link}
             to="/mod"
             isSelected={pathname.match(/^\/mod/gi) && true}
+            onClick={close}
           >
             Moderator
           </Tab>
@@ -115,6 +132,7 @@ class Navbar extends Component {
             is={Link}
             to="/admin"
             isSelected={pathname.match(/^\/admin/gi) && true}
+            onClick={close}
           >
             Admin
           </Tab>
@@ -122,11 +140,6 @@ class Navbar extends Component {
       </TabNavigation>
     )
 
-    const c = (
-      <Pane>
-        <Text>cummies</Text>
-      </Pane>
-    )
     return (
       <Pane
         borderBottom="muted"
@@ -141,6 +154,7 @@ class Navbar extends Component {
           marginTop={0}
           marginLeft={majorScale(10)}
           marginBottom={10}
+          className={styles.brand}
         >
           pxl
         </Heading>
@@ -162,7 +176,7 @@ class Navbar extends Component {
           justifyContent="space-between"
           alignContent="center"
           width="100%"
-          paddingRight={majorScale(10)}
+          paddingRight={4}
           marginBottom={8}
         >
           <div style={{ flexGrow: '1' }} />
@@ -175,8 +189,8 @@ class Navbar extends Component {
               top={48}
               left={0}
               width="100%"
-              paddingLeft={majorScale(11)}
-              paddingRight={majorScale(10)}
+              paddingLeft={4}
+              paddingRight={16}
               display={open ? 'flex' : 'none'}
               className={styles.portalpane}
             >
