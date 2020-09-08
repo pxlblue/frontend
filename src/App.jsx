@@ -227,12 +227,7 @@ class App extends PureComponent {
             />
           </Helmet>
           <Navbar />
-          <Pane
-            marginLeft={majorScale(10)}
-            marginRight={majorScale(10)}
-            marginTop={majorScale(2)}
-            className={styles.container}
-          >
+          <Pane marginTop={majorScale(2)} className={styles.container}>
             <Switch>
               <Route exact path="/" component={Index} />
               <Route exact path="/domains" component={Domains} />

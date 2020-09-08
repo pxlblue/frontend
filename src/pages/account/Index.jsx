@@ -42,44 +42,46 @@ class AccountIndex extends PureComponent {
     const { profile, loggedIn, pathname } = this.props
     return (
       <Pane className={styles.container}>
-        <Heading size={800}>Account Dashboard</Heading>
-        <Text>Logged in as {profile.username}</Text>
-        <Pane display="flex" flexDirection="row" width="100%">
-          <Pane
-            elevation={1}
-            minWidth={'20%'}
-            height={80}
-            padding={majorScale(2)}
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-          >
-            <UserIcon
-              color={defaultTheme.colors.icon.info}
-              size={majorScale(6)}
-            />
-            <Pane marginLeft={majorScale(1)}>
-              <Text>{profile.id}</Text>
-              <Heading size={100}>User ID</Heading>
+        <Pane marginLeft={majorScale(4)}>
+          <Heading size={800}>Account Dashboard</Heading>
+          <Text>Logged in as {profile.username}</Text>
+          <Pane display="flex" flexDirection="row" width="100%">
+            <Pane
+              elevation={1}
+              minWidth={'20%'}
+              height={80}
+              padding={majorScale(2)}
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+            >
+              <UserIcon
+                color={defaultTheme.colors.icon.info}
+                size={majorScale(6)}
+              />
+              <Pane marginLeft={majorScale(1)}>
+                <Text>{profile.id}</Text>
+                <Heading size={100}>User ID</Heading>
+              </Pane>
             </Pane>
-          </Pane>
-          <Pane
-            elevation={1}
-            minWidth={'20%'}
-            height={80}
-            padding={majorScale(2)}
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            marginLeft={majorScale(6)}
-          >
-            <CameraIcon
-              color={defaultTheme.colors.icon.success}
-              size={majorScale(6)}
-            />
-            <Pane marginLeft={majorScale(1)}>
-              <Text>{profile.imageCount.toString()}</Text>
-              <Heading size={100}>Images Uploaded</Heading>
+            <Pane
+              elevation={1}
+              minWidth={'20%'}
+              height={80}
+              padding={majorScale(2)}
+              display="flex"
+              flexDirection="row"
+              alignItems="center"
+              marginLeft={majorScale(6)}
+            >
+              <CameraIcon
+                color={defaultTheme.colors.icon.success}
+                size={majorScale(6)}
+              />
+              <Pane marginLeft={majorScale(1)}>
+                <Text>{profile.imageCount.toString()}</Text>
+                <Heading size={100}>Images Uploaded</Heading>
+              </Pane>
             </Pane>
           </Pane>
         </Pane>

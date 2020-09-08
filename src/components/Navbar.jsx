@@ -148,6 +148,7 @@ class Navbar extends Component {
         flexDirection="row"
         alignItems="center"
         maxHeight={40}
+        margin={8}
       >
         <Heading
           size={700}

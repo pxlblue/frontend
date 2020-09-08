@@ -26,7 +26,7 @@ export default class Domains extends PureComponent {
     const { loading, domains } = this.state
     if (loading) return <Loading />
     return (
-      <Layout heading="Domains">
+      <Layout heading="Domains" enableMargins>
         <Table marginTop={majorScale(2)}>
           <Table.Head>
             <Table.TextHeaderCell flexBasis={340} flexGrow={0} flexShrink={0}>

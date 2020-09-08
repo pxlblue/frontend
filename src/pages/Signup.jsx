@@ -44,13 +44,13 @@ class Signup extends PureComponent {
     const { loggedIn, profile } = this.props
     if (loggedIn) {
       return (
-        <Layout heading="Register">
+        <Layout heading="Register" enableMargins>
           <Text>You're already logged in as {profile.username}</Text>
         </Layout>
       )
     }
     return (
-      <Layout heading="Register">
+      <Layout heading="Register" enableMargins>
         <Formik
           initialValues={{
             username: '',
