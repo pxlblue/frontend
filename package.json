@@ -1,7 +1,7 @@
 {
   "name": "pxl-frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "worker.js",
   "license": "MIT",
   "scripts": {
     "start": "yarn start:dev:watch",
@@ -14,10 +14,12 @@
     "build:prod": "yarn clean && cross-env NODE_ENV=production yarn build:prod:vendor && webpack --mode=production",
     "build:prod:watch": "cross-env NODE_ENV=production yarn build:prod:vendor && webpack --mode=production --watch",
     "build:prod:vendor": "cross-env NODE_ENV=production webpack --mode=production --config=vendor.webpack.config.js",
+    "upload": "yarn build:prod && wrangler publish -e production",
     "test": "echo Test placeholder",
     "rundist": "http-server build"
   },
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.0.12",
     "classnames": "^2.2.6",
     "evergreen-ui": "^4.27.4",
     "history": "^4.10.1",
@@ -33,6 +35,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.9.6",
     "@babel/plugin-syntax-class-properties": "^7.8.3",
     "@babel/preset-react": "^7.9.4",
+    "@cloudflare/wrangler": "^1.11.0",
     "babel-loader": "^8.1.0",
     "connected-react-router": "^6.8.0",
     "cross-env": "^7.0.2",
