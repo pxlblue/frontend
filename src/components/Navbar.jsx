@@ -47,7 +47,12 @@ class Navbar extends PureComponent {
           >
             Domains
           </Tab>
-          <Tab is="a" href="https://api.pxl.blue/discord" target="_blank">
+          <Tab
+            is="a"
+            href="https://api.pxl.blue/discord"
+            rel="noopener"
+            target="_blank"
+          >
             Discord
           </Tab>
           {loggedIn &&
