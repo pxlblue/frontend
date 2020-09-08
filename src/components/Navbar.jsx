@@ -23,7 +23,7 @@ const mapStateToProps = (state) => ({
 
 class Navbar extends Component {
   state = {
-    open: true,
+    open: false,
   }
   constructor() {
     super()
