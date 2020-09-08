@@ -11,11 +11,12 @@ import {
 } from 'evergreen-ui'
 import pxlApi from 'pxl/Api'
 import PaginatedTable from 'components/PaginatedTable'
+import Layout from 'components/Layout'
 
 export default class AccountImages extends Component {
   render() {
     return (
-      <Pane width={'100%'}>
+      <Layout heading="Images">
         <PaginatedTable
           endpoint="/users/@me/images"
           limit={10}
@@ -44,7 +45,7 @@ export default class AccountImages extends Component {
             },
           ]}
         />
-      </Pane>
+      </Layout>
     )
   }
 }

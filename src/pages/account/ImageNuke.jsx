@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Pane, Text, Button, minorScale, toaster } from 'evergreen-ui'
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
+import Layout from 'components/Layout'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
   session: state.root.session,
@@ -18,16 +19,18 @@ class AccountImageNuke extends PureComponent {
   }
   render() {
     return (
-      <Pane display="flex" flexDirection="column">
-        <Text>
-          Once you nuke your images they CANNOT be recovered. They are deleted
-          from the storage. Nuking your images is a PERMANENT action.
-        </Text>
-        <Text>
-          Please only press the button below if you are ABSOLUTELY sure you want
-          to delete all of your images.
-        </Text>
-        <Text>There is NO confirmation.</Text>
+      <Layout heading="Image nuke">
+        <Pane display="flex" flexDirection="column">
+          <Text>
+            Once you nuke your images they CANNOT be recovered. They are deleted
+            from the storage. Nuking your images is a PERMANENT action.
+          </Text>
+          <Text>
+            Please only press the button below if you are ABSOLUTELY sure you
+            want to delete all of your images.
+          </Text>
+          <Text>There is NO confirmation.</Text>
+        </Pane>
         <Pane marginTop={minorScale(1)}>
           <Button
             appearance="default"
@@ -37,7 +40,7 @@ class AccountImageNuke extends PureComponent {
             Nuke images
           </Button>
         </Pane>
-      </Pane>
+      </Layout>
     )
   }
 }

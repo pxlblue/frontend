@@ -12,6 +12,7 @@ import {
 import { Formik } from 'formik'
 import pxlApi from 'pxl/Api'
 import { connect } from 'react-redux'
+import Layout from 'components/Layout'
 
 const mapStateToProps = (state) => ({
   pathname: state.router.location.pathname,
@@ -43,15 +44,13 @@ class Signup extends PureComponent {
     const { loggedIn, profile } = this.props
     if (loggedIn) {
       return (
-        <Pane>
-          <Heading size={800}>Sign Up</Heading>
+        <Layout heading="Register">
           <Text>You're already logged in as {profile.username}</Text>
-        </Pane>
+        </Layout>
       )
     }
     return (
-      <Pane>
-        <Heading size={800}>Sign Up</Heading>
+      <Layout heading="Register">
         <Formik
           initialValues={{
             username: '',
@@ -145,7 +144,7 @@ class Signup extends PureComponent {
             </form>
           )}
         </Formik>
-      </Pane>
+      </Layout>
     )
   }
 }

@@ -239,14 +239,14 @@ class AccountMail extends PureComponent {
           <Text>
             Your mail account already exists. Login with your pxl.blue
             username/password at{' '}
-            <Link
+            <a
               href={`https://pxl.so?_user=${encodeURIComponent(
                 profile.username.toLowerCase()
               )}`}
               target="_blank"
             >
               pxl.so
-            </Link>
+            </a>
           </Text>
         </Alert>
         <Pane marginTop={majorScale(1)}>
@@ -254,7 +254,6 @@ class AccountMail extends PureComponent {
         </Pane>
         <Pane marginTop={minorScale(1)}>
           <Button
-            intent="success"
             is="a"
             href={`https://pxl.so?_user=${encodeURIComponent(
               profile.username.toLowerCase()

@@ -13,6 +13,7 @@ import {
 } from 'evergreen-ui'
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
+import Layout from 'components/Layout'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
 })
@@ -124,8 +125,7 @@ class AccountSettings extends PureComponent {
   }
   render() {
     return (
-      <Pane>
-        <Heading size={800}>User Settings</Heading>
+      <Layout heading="User Settings">
         <Pane marginTop={majorScale(2)}>
           <SettingSwitch
             name="settings_discordLink"
@@ -145,7 +145,7 @@ class AccountSettings extends PureComponent {
             Save
           </Button>
         </Pane>
-      </Pane>
+      </Layout>
     )
   }
 }

@@ -10,6 +10,8 @@ import {
 } from 'evergreen-ui'
 
 import pxlApi from 'pxl/Api'
+import Layout from 'components/Layout'
+import Loading from 'components/Loading'
 
 export default class Domains extends PureComponent {
   state = {
@@ -22,27 +24,9 @@ export default class Domains extends PureComponent {
   }
   render() {
     const { loading, domains } = this.state
-    if (loading)
-      return (
-        <Pane>
-          <Heading size={800}>Domains</Heading>
-          <Pane
-            marginLeft={majorScale(10)}
-            marginRight={majorScale(10)}
-            marginTop={majorScale(2)}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Spinner size={56} />
-            <Heading size={100}>Loading</Heading>
-          </Pane>
-        </Pane>
-      )
+    if (loading) return <Loading />
     return (
-      <Pane>
-        <Heading size={800}>Domains</Heading>
+      <Layout heading="Domains">
         <Table marginTop={majorScale(2)}>
           <Table.Head>
             <Table.TextHeaderCell flexBasis={340} flexGrow={0} flexShrink={0}>
@@ -72,7 +56,7 @@ export default class Domains extends PureComponent {
             ))}
           </Table.Body>
         </Table>
-      </Pane>
+      </Layout>
     )
   }
 }

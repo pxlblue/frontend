@@ -11,35 +11,11 @@ import {
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
 import { Formik } from 'formik'
+import Layout from 'components/Layout'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
   session: state.root.session,
 })
-
-class Aliases_ extends PureComponent {
-  state = {
-    loading: true,
-    aliases: [],
-    domains: [],
-  }
-  async createAlias(values, { setSubmitting }) {
-    console.log(values)
-    const res = await pxlApi.http_post('/mail/alias/create', true, {
-      username: values.username,
-      domain: values.domain,
-    })
-    if (!res.success) {
-      toaster.danger('Failed to create alias', {
-        description: res.errors.join('\n'),
-      })
-      return setSubmitting(false)
-    }
-    toaster.success(res.message)
-    await this.refetchData()
-    setSubmitting(false)
-  }
-  render() {}
-}
 
 class AccountRedeem extends PureComponent {
   constructor() {
@@ -58,11 +34,8 @@ class AccountRedeem extends PureComponent {
   }
 
   render() {
-    const { profile } = this.props
     return (
-      <Pane width={'100%'}>
-        <Heading size={800}>Redeem a Voucher</Heading>
-
+      <Layout heading="Redeem a Voucher">
         <Formik
           initialValues={{
             voucher: '',
@@ -109,7 +82,7 @@ class AccountRedeem extends PureComponent {
             </form>
           )}
         </Formik>
-      </Pane>
+      </Layout>
     )
   }
 }

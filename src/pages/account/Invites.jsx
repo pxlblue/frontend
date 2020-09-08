@@ -8,8 +8,11 @@ import {
   Table,
   Code,
   toaster,
+  majorScale,
 } from 'evergreen-ui'
 import pxlApi from 'pxl/Api'
+import Loading from 'components/Loading'
+import Layout from 'components/Layout'
 
 export default class AccountInvites extends Component {
   state = {
@@ -38,21 +41,10 @@ export default class AccountInvites extends Component {
   render() {
     const { loading, invites, canCreateInvites } = this.state
     if (loading) {
-      return (
-        <Pane
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          height={'100%'}
-        >
-          <Spinner size={56} />
-          <Heading size={100}>Loading Data</Heading>
-        </Pane>
-      )
+      return <Loading />
     }
     return (
-      <Pane width={'100%'}>
+      <Layout heading="Invites">
         <Tooltip
           content={
             !canCreateInvites
@@ -64,6 +56,7 @@ export default class AccountInvites extends Component {
             intent="default"
             disabled={!canCreateInvites}
             onClick={this.createInvite.bind(this)}
+            marginBottom={majorScale(2)}
           >
             Create Invite
           </Button>
@@ -88,7 +81,7 @@ export default class AccountInvites extends Component {
             ))}
           </Table.Body>
         </Table>
-      </Pane>
+      </Layout>
     )
   }
 }
