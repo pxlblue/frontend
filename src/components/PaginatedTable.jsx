@@ -91,7 +91,11 @@ export default class PaginatedTable extends Component {
                       <Code children={row[r.member]} />
                     )}
                     {r.type && r.type === 'img_hyperlink' && (
-                      <a href={`https://${row.host}/${row[r.member]}`}>
+                      <a
+                        href={`https://${row.host}/${row[r.member]}`}
+                        target="_blank"
+                        rel="noopener"
+                      >
                         {row[r.member]}
                       </a>
                     )}
