@@ -90,7 +90,12 @@ export default class PaginatedTable extends Component {
                     {r.type && r.type === 'code' && (
                       <Code children={row[r.member]} />
                     )}
-                    {(!r.type || r.type !== 'code') && row[r.member]}
+                    {r.type && r.type === 'img_hyperlink' && (
+                      <a href={`https://${row.host}/${row[r.member]}`}>
+                        {row[r.member]}
+                      </a>
+                    )}
+                    {!r.type && row[r.member]}
                   </Table.TextCell>
                 ))}
               </Table.Row>

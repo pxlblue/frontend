@@ -26,6 +26,7 @@ export default class AccountImages extends Component {
               id: 'path',
               header: 'Image',
               member: 'path',
+              type: 'img_hyperlink',
             },
             {
               id: 'originalName',
