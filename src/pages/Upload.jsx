@@ -147,6 +147,7 @@ function Upload(props) {
           alignItems="center"
           hoverElevation={4}
           minHeight={majorScale(24)}
+          style={{ cursor: 'pointer' }}
         >
           <input {...getInputProps()} />
           <UploadIcon size={48} color="rgba(16, 112, 202,0.85)" />
