@@ -10,6 +10,7 @@ class PxlApi {
     if (localStorage.getItem('session')) {
       this.session = localStorage.getItem('session')
     }
+    this.base = API_BASE
   }
 
   setSession(session) {

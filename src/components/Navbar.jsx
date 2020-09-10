@@ -50,7 +50,7 @@ class Navbar extends Component {
           is={Link}
           to="/"
           isSelected={pathname.match(/^\/$/gi) && true}
-          onClick={close}
+          onSelect={close}
         >
           Home
         </Tab>
@@ -58,7 +58,7 @@ class Navbar extends Component {
           is={Link}
           to="/domains"
           isSelected={pathname.match(/^\/domains$/gi) && true}
-          onClick={close}
+          onSelect={close}
         >
           Domains
         </Tab>
@@ -67,10 +67,20 @@ class Navbar extends Component {
           href="https://api.pxl.blue/discord"
           rel="noopener"
           target="_blank"
-          onClick={close}
+          onSelect={close}
         >
           Discord
         </Tab>
+        {loggedIn && profile && (
+          <Tab
+            is={Link}
+            to="/upload"
+            isSelected={pathname.match(/^\/upload$/gi) && true}
+            onSelect={close}
+          >
+            Upload
+          </Tab>
+        )}
         {loggedIn &&
           profile &&
           profile.mailAccess &&
@@ -81,7 +91,7 @@ class Navbar extends Component {
                 profile.username.toLowerCase()
               )}`}
               target="_blank"
-              onClick={close}
+              onSelect={close}
             >
               Webmail
             </Tab>
@@ -94,7 +104,7 @@ class Navbar extends Component {
           is={Link}
           to="/login"
           isSelected={pathname.match(/^\/login$/gi) && true}
-          onClick={close}
+          onSelect={close}
         >
           Login
         </Tab>
@@ -102,7 +112,7 @@ class Navbar extends Component {
           is={Link}
           to="/signup"
           isSelected={pathname.match(/^\/signup$/gi) && true}
-          onClick={close}
+          onSelect={close}
         >
           Sign Up
         </Tab>
@@ -113,7 +123,7 @@ class Navbar extends Component {
           is={Link}
           to="/account"
           isSelected={pathname.match(/^\/account/gi) && true}
-          onClick={close}
+          onSelect={close}
         >
           Account
         </Tab>
@@ -122,7 +132,7 @@ class Navbar extends Component {
             is={Link}
             to="/mod"
             isSelected={pathname.match(/^\/mod/gi) && true}
-            onClick={close}
+            onSelect={close}
           >
             Moderator
           </Tab>
@@ -132,7 +142,7 @@ class Navbar extends Component {
             is={Link}
             to="/admin"
             isSelected={pathname.match(/^\/admin/gi) && true}
-            onClick={close}
+            onSelect={close}
           >
             Admin
           </Tab>

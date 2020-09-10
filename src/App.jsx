@@ -29,6 +29,7 @@ import AdminIndex from 'pages/admin/Index'
 
 import styles from './styles/container.scss'
 import { Helmet } from 'react-helmet'
+import Upload from 'pages/Upload'
 
 const mapRouteStateToProps = (state) => ({
   profile: state.root.profile,
@@ -234,6 +235,8 @@ class App extends PureComponent {
 
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+
+              <LoggedInRoute path="/upload" component={Upload} />
 
               <LoggedInRoute path="/account" component={AccountIndex} />
 
