@@ -2,7 +2,7 @@
   "name": "pxl-frontend",
   "version": "1.0.0",
   "main": "worker.js",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "yarn start:dev:watch",
     "start:dev": "yarn build:dev:vendor && webpack-dev-server --mode=development",
@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@cloudflare/kv-asset-handler": "^0.0.12",
+    "@sentry/react": "^5.23.0",
+    "@sentry/tracing": "^5.23.0",
     "classnames": "^2.2.6",
     "evergreen-ui": "^4.27.4",
     "history": "^4.10.1",

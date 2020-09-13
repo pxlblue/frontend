@@ -1,6 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import * as Sentry from '@sentry/react'
+import { Integrations } from '@sentry/tracing'
 import store from './store/index'
 import history from './store/history'
 
@@ -26,6 +28,17 @@ if ('serviceWorker' in navigator) {
     })
   })
 }
+
+Sentry.init({
+  dsn: DSN,
+  integrations: [
+    new Integrations.BrowserTracing({
+      routingInstrumentation: Sentry.reactRouterV5Instrumentation(history),
+    }),
+  ],
+  tracesSampleRate: 1.0,
+  release: 'frontend@' + RELEASE,
+})
 
 render(
   <Provider store={store}>

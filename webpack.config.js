@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const child_process = require('child_process')
 const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -9,6 +10,10 @@ module.exports = (env, argv) => {
   const getEnv = () =>
     argv.mode === 'development' ? 'development' : 'production'
   const isDev = () => getEnv() === 'development'
+  const commitSha = child_process
+    .execSync('git rev-parse HEAD')
+    .toString('utf8')
+    .replace(/\n/gi, '')
   console.log('(pxl) building in', getEnv())
 
   return {
@@ -133,10 +138,14 @@ module.exports = (env, argv) => {
         manifest: './build/vendor-manifest.json',
       }),
       new webpack.DefinePlugin({
-        //'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+        'process.env.NODE_ENV': JSON.stringify(getEnv()),
         S_API_BASE: JSON.stringify(
           isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
         ),
+        DSN: JSON.stringify(
+          'https://d6c26dc4eabf418d8e747a0cdefffa4c@sentry.pxl.blue/2'
+        ),
+        RELEASE: JSON.stringify(commitSha),
       }),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',

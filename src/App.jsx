@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { ConnectedRouter } from 'connected-react-router'
 import { Switch, Route, Redirect } from 'react-router'
 import {
@@ -14,6 +14,7 @@ import {
   Button,
   defaultTheme,
   ThemeProvider,
+  minorScale,
 } from 'evergreen-ui'
 import { connect } from 'react-redux'
 
@@ -31,21 +32,13 @@ import styles from './styles/container.scss'
 import { Helmet } from 'react-helmet'
 import Upload from 'pages/Upload'
 
+import * as Sentry from '@sentry/react'
+
 const mapRouteStateToProps = (state) => ({
   profile: state.root.profile,
   loggedIn: state.root.loggedIn,
 })
 
-const NewRoute = connect(mapRouteStateToProps)(
-  ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) => {
-        return <Component {...props} {...rest} />
-      }}
-    />
-  )
-)
 const LoggedInRoute = connect(mapRouteStateToProps)(
   ({ component: Component, profile, loggedIn, ...rest }) => {
     if (!loggedIn) {
@@ -137,62 +130,10 @@ const theme = {
 theme.typography.fontFamilies.display =
   'Inter,' + theme.typography.fontFamilies.display
 theme.typography.fontFamilies.ui = 'Inter,' + theme.typography.fontFamilies.ui
-class App extends PureComponent {
-  state = {
-    hasError: false,
-  }
-  static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true, error }
-  }
-  componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service
-    //logErrorToMyService(error, errorInfo)
-  }
+class App extends Component {
   render() {
     const { loggedIn, realUser } = this.props
-    if (this.state.hasError) {
-      return (
-        <ThemeProvider value={theme}>
-          <ConnectedRouter history={this.props.history}>
-            <Navbar />
-            <Pane
-              marginLeft={majorScale(10)}
-              marginRight={majorScale(10)}
-              marginTop={majorScale(2)}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              height={'100%'}
-            >
-              <Heading size={800} marginBottom={majorScale(1)}>
-                Error while loading page
-              </Heading>
-              <Text>
-                Please send the following data to a developer so we can fix the
-                problem smoothly.
-              </Text>
-              <Button
-                intent="primary"
-                is="a"
-                href="/"
-                marginBottom={majorScale(1)}
-              >
-                Go home
-              </Button>
-              <Code width={'100%'}>
-                <Pre fontFamily="mono">
-                  {this.state.error.stack
-                    ? this.state.error.stack
-                    : this.state.error.toString()}
-                </Pre>
-              </Code>
-            </Pane>
-          </ConnectedRouter>
-        </ThemeProvider>
-      )
-    }
+
     if (loggedIn && !realUser) {
       return (
         <ThemeProvider value={theme}>
@@ -216,35 +157,86 @@ class App extends PureComponent {
       )
     }
     return (
-      <ThemeProvider value={theme}>
-        <ConnectedRouter
-          history={this.props.history}
-          /*className={classNames(styles.root)}*/
-        >
-          <Helmet>
-            <link
-              href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-              rel="stylesheet"
-            />
-          </Helmet>
-          <Navbar />
-          <Pane marginTop={majorScale(2)} className={styles.container}>
-            <Switch>
-              <Route exact path="/" component={Index} />
-              <Route exact path="/domains" component={Domains} />
+      <Sentry.ErrorBoundary
+        fallback={({ error, componentStack, resetError, eventId }) => (
+          <>
+            <ConnectedRouter
+              history={this.props.history}
+              /*className={classNames(styles.root)}*/
+            >
+              <Navbar />
+              <Pane
+                marginLeft={majorScale(10)}
+                marginRight={majorScale(10)}
+                marginTop={majorScale(2)}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                height={'100%'}
+              >
+                <Heading size={800} marginBottom={majorScale(1)}>
+                  Error while loading page
+                </Heading>
+                <Text>
+                  Please send the following code to a developer so we can fix
+                  the problem smoothly.
+                </Text>
+                <Pane display="flex" flexDirection="row" alignItems="center">
+                  <Heading size={300} marginRight={minorScale(1)}>
+                    Error ID:
+                  </Heading>
+                  <Code>{eventId}</Code>
+                </Pane>
+                <Button
+                  intent="primary"
+                  is="a"
+                  href="/"
+                  marginBottom={majorScale(1)}
+                >
+                  Go home
+                </Button>
+                <Code width={'100%'}>
+                  <Pre fontFamily="mono">
+                    {error.toString()}
+                    {componentStack}
+                  </Pre>
+                </Code>
+              </Pane>
+            </ConnectedRouter>
+          </>
+        )}
+      >
+        <ThemeProvider value={theme}>
+          <ConnectedRouter
+            history={this.props.history}
+            /*className={classNames(styles.root)}*/
+          >
+            <Helmet>
+              <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+                rel="stylesheet"
+              />
+            </Helmet>
+            <Navbar />
+            <Pane marginTop={majorScale(2)} className={styles.container}>
+              <Switch>
+                <Route exact path="/" component={Index} />
+                <Route exact path="/domains" component={Domains} />
 
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
 
-              <LoggedInRoute path="/upload" component={Upload} />
+                <LoggedInRoute path="/upload" component={Upload} />
 
-              <LoggedInRoute path="/account" component={AccountIndex} />
+                <LoggedInRoute path="/account" component={AccountIndex} />
 
-              <AdminRoute path="/admin" component={AdminIndex} />
-            </Switch>
-          </Pane>
-        </ConnectedRouter>
-      </ThemeProvider>
+                <AdminRoute path="/admin" component={AdminIndex} />
+              </Switch>
+            </Pane>
+          </ConnectedRouter>
+        </ThemeProvider>
+      </Sentry.ErrorBoundary>
     )
   }
 }
