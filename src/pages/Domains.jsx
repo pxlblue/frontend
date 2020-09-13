@@ -25,7 +25,6 @@ export default class Domains extends PureComponent {
   render() {
     const { loading, domains } = this.state
     if (loading) return <Loading />
-    throw new Error('cummmies uwu')
 
     return (
       <Layout heading="Domains" enableMargins>
