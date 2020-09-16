@@ -9,7 +9,14 @@ module.exports = (env, argv) => {
   return {
     mode: getEnv(),
     entry: {
-      vendor: ['react', 'react-dom', 'react-router', 'classnames'],
+      vendor: [
+        'react',
+        'react-dom',
+        'react-router',
+        'classnames',
+        'prop-types',
+        'evergreen-ui',
+      ],
     },
     output: {
       filename: 'js/vendor.bundle.js',

@@ -38,7 +38,6 @@ class AccountIndex extends PureComponent {
     super()
   }
   render() {
-    console.log(styles)
     const { profile, loggedIn, pathname } = this.props
     return (
       <Pane className={styles.container}>

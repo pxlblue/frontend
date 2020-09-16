@@ -54,7 +54,6 @@ class Aliases_ extends PureComponent {
     await this.refetchData()
   }
   async createAlias(values, { setSubmitting }) {
-    console.log(values)
     const res = await pxlApi.http_post('/mail/alias/create', true, {
       username: values.username,
       domain: values.domain,

@@ -1,10 +1,11 @@
-const webpack = require('webpack')
-const child_process = require('child_process')
-const path = require('path')
-
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
+const webpack = require('webpack'),
+  child_process = require('child_process'),
+  path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  HtmlWebpackPlugin = require('html-webpack-plugin'),
+  OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
+  TerserJSPlugin = require('terser-webpack-plugin'),
+  WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = (env, argv) => {
   const getEnv = () =>
@@ -22,8 +23,8 @@ module.exports = (env, argv) => {
       bundle: './src/index.jsx',
     },
     output: {
-      filename: 'js/[name].[hash].js',
-      chunkFilename: 'js/[name].[chunkhash].js',
+      filename: isDev() ? 'js/[name].[hash].js' : 'js/[hash].js',
+      chunkFilename: 'js/[id].[chunkhash].js',
       path: path.resolve(__dirname, 'build'),
       publicPath: '/',
     },
@@ -42,10 +43,62 @@ module.exports = (env, argv) => {
       modules: [
         'node_modules',
         path.resolve(__dirname, 'src'),
-        path.resolve(__dirname, 'src', 'css'),
-        path.resolve(__dirname, 'src', 'js'),
+        path.resolve(__dirname, 'src', 'styles'),
+        path.resolve(__dirname, 'src', 'components'),
       ],
+      alias: {
+        styles: path.resolve(__dirname, 'src', 'styles'),
+      },
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          critical: {
+            name: 'critical',
+            test: /(.+)?(critical)(.+)?\.(c|sa|sc)ss$/,
+            chunks: 'all',
+            enforce: true,
+            priority: 1,
+          },
+          styles: {
+            name: 'styles',
+            test: /\.(c|sa|sc)ss$/,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      },
+      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    },
+    plugins: [
+      new webpack.DllReferencePlugin({
+        context: '.',
+        manifest: './build/vendor-manifest.json',
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(getEnv()),
+        S_API_BASE: JSON.stringify(
+          isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
+        ),
+        DSN: JSON.stringify(
+          'https://d6c26dc4eabf418d8e747a0cdefffa4c@sentry.pxl.blue/2'
+        ),
+        RELEASE: JSON.stringify(commitSha),
+      }),
+      new MiniCssExtractPlugin({
+        filename: isDev() ? 'css/[name].css' : 'css/[hash].css',
+      }),
+      new HtmlWebpackPlugin({
+        title: 'pxl.blue',
+        appMountId: 'app-mount',
+        template: path.resolve(__dirname, 'src', 'tmpl', 'index.html'),
+      }),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true,
+      }),
+    ],
     module: {
       rules: [
         {
@@ -75,17 +128,12 @@ module.exports = (env, argv) => {
             {
               loader: 'css-loader',
               options: {
-                /*modules: true,  
-                importLoaders: 2,
-                camelCase: true,
-                localIdentName: isDev()
-                  ? '💦[local]__[hash:base62:5]'
-                  : '💦[hash:base62:5]',*/
                 modules: {
                   exportGlobals: true,
-                  localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                  context: path.resolve(__dirname, 'src'),
-                  hashPrefix: '💦',
+                  exportLocalsConvention: 'camelCase',
+                  localIdentName: isDev()
+                    ? '[local]__[hash:base62:5]'
+                    : '[hash:base62:5]',
                 },
               },
             },
@@ -93,12 +141,12 @@ module.exports = (env, argv) => {
           ],
         },
         {
-          test: /\.(svg|png|jpg|eot|woff|ttf)$/,
+          test: /\.(svg|png|jpg|eot|woff2?|ttf)$/,
           use: [
             {
               loader: 'file-loader',
               options: {
-                name: '[name].[ext]',
+                name: isDev() ? '[name].[ext]' : '[hash].[ext]',
                 outputPath: 'assets/',
               },
             },
@@ -106,62 +154,5 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-
-        cacheGroups: {
-          /*critical: {
-            name: 'critical',
-            test: /(.+)?(critical)(.+)?\.(c|sa|sc)ss$/,
-            chunks: 'all',
-            enforce: true,
-            priority: 1,
-          },*/
-          styles: {
-            name: 'styles',
-            test: /\.(c|sa|sc)ss$/,
-            chunks: 'all',
-            enforce: true,
-          },
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true,
-          },
-        },
-      },
-    },
-    plugins: [
-      new webpack.DllReferencePlugin({
-        context: '.',
-        manifest: './build/vendor-manifest.json',
-      }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(getEnv()),
-        S_API_BASE: JSON.stringify(
-          isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
-        ),
-        DSN: JSON.stringify(
-          'https://d6c26dc4eabf418d8e747a0cdefffa4c@sentry.pxl.blue/2'
-        ),
-        RELEASE: JSON.stringify(commitSha),
-      }),
-      new MiniCssExtractPlugin({
-        filename: 'css/[name].css',
-      }),
-      new HtmlWebpackPlugin({
-        title: 'pxl.blue',
-        appMountId: 'app-mount',
-        template: path.resolve(__dirname, 'src', 'tmpl', 'index.html'),
-      }),
-      new WorkboxPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true,
-        runtimeCaching: [
-          { urlPattern: new RegExp('/'), handler: 'StaleWhileRevalidate' },
-        ],
-      }),
-    ],
   }
 }
