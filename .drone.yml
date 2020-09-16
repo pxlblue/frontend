@@ -6,6 +6,8 @@ steps:
   - name: build
     image: node:14-alpine
     commands:
+      - apk update
+      - apk add --no-cache git
       - yarn
       - yarn build:prod
   - name: publish
