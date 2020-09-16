@@ -17,4 +17,4 @@ steps:
         from_secret: cf_api_token
     commands:
       - yarn global add @cloudflare/wrangler
-      - wrangler publish
+      - wrangler publish --env production
