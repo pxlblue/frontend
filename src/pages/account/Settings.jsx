@@ -22,20 +22,39 @@ class UploadKey extends PureComponent {
   state = { hidden: true }
   constructor() {
     super()
-    this.copyKeyToClipboard = this.copyKeyToClipboard.bind(this)
+    this.copyToClipboard = this.copyToClipboard.bind(this)
+    this.regenerate = this.regenerate.bind(this)
     this.toggleVisibility = this.toggleVisibility.bind(this)
   }
-  copyKeyToClipboard() {
-    let key = this.props.uploadKey
+  copyToClipboard() {
+    let val = this.props.value
 
-    if ('clipboard' in navigator) {
-      navigator.clipboard.writeText(key)
-      toaster.notify('Upload key copied to clipboard')
-    } else {
-      toaster.danger(
-        'Your browser does not have support for copying automatically'
-      )
+    try {
+      if ('clipboard' in navigator) {
+        navigator.clipboard.writeText(val)
+        toaster.notify('Upload key copied to clipboard')
+      } else {
+        toaster.danger(
+          'Your browser does not have support for copying automatically'
+        )
+      }
+    } catch (err) {
+      toaster.danger('Failed to write to clipboard', {
+        description: err.toString(),
+      })
     }
+  }
+  async regenerate() {
+    let res = await pxlApi.http_post(
+      `/users/@me/keys/${this.props.keyType}/regenerate`
+    )
+    if (!res.success) {
+      return toaster.danger('Failed to regenerate key', {
+        description: res.errors.join('\n'),
+      })
+    }
+    toaster.notify(res.message)
+    if (typeof this.props.regenerated === 'function') this.props.regenerated()
   }
   toggleVisibility() {
     this.setState({ hidden: !this.state.hidden })
@@ -45,7 +64,7 @@ class UploadKey extends PureComponent {
     return (
       <Pane display="flex" flexDirection="row" justifyItems="center">
         <TextInput
-          value={this.props.uploadKey}
+          value={this.props.value}
           ref={(textarea) => (this.textArea = textarea)}
           disabled
           type={hidden ? 'password' : 'text'}
@@ -62,9 +81,20 @@ class UploadKey extends PureComponent {
           marginLeft={minorScale(4)}
           appearance="minimal"
           intent="none"
-          onClick={this.copyKeyToClipboard}
+          onClick={this.copyToClipboard}
         >
           Copy
+        </Button>
+
+        <Button
+          iconBefore={'refresh'}
+          height={32}
+          marginLeft={minorScale(4)}
+          appearance="minimal"
+          intent="danger"
+          onClick={this.regenerate}
+        >
+          Regenerate
         </Button>
       </Pane>
     )
@@ -112,6 +142,7 @@ class AccountSettings extends PureComponent {
   componentDidMount() {
     this.setState({
       settings_discordLink: this.props.profile.settings_discordLink,
+      settings_apiIpSecurity: this.props.profile.settings_apiIpSecurity,
     })
   }
   async onClick() {
@@ -122,6 +153,9 @@ class AccountSettings extends PureComponent {
       })
     }
     toaster.success(res.message)
+  }
+  async regenerated() {
+    await pxlApi.getMe()
   }
   render() {
     return (
@@ -134,10 +168,30 @@ class AccountSettings extends PureComponent {
             setState={this.setState.bind(this)}
             value={this.state.settings_discordLink}
           />
+          <SettingSwitch
+            name="settings_apiIpSecurity"
+            title="Strict IP checking for API keys"
+            description="Prevents IP addresses which have not logged into your account before from using your API key"
+            setState={this.setState.bind(this)}
+            value={this.state.settings_apiIpSecurity}
+          />
           <Pane marginBottom={majorScale(2)}>
             <Heading size={500}>Upload key</Heading>
             <Text>For use in third-party upload scripts</Text>
-            <UploadKey uploadKey={this.props.profile.uploadKey} />
+            <UploadKey
+              value={this.props.profile.uploadKey}
+              keyType="uploadKey"
+              regenerated={this.regenerated.bind(this)}
+            />
+          </Pane>
+          <Pane marginBottom={majorScale(2)}>
+            <Heading size={500}>API key</Heading>
+            <Text>For use in third-party utilities</Text>
+            <UploadKey
+              value={this.props.profile.apiKey}
+              keyType="apiKey"
+              regenerated={this.regenerated.bind(this)}
+            />
           </Pane>
         </Pane>
         <Pane marginTop={majorScale(2)}>

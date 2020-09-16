@@ -1,0 +1,18 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: build
+    image: node:14-alpine
+    commands:
+      - yarn
+      - yarn build:prod
+  - name: publish
+    image: node:14-alpine
+    environment:
+      CF_API_TOKEN:
+        from_secret: cf_api_token
+    commands:
+      - yarn global add @cloudflare/wrangler
+      - wrangler publish
