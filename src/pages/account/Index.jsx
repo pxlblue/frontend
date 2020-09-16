@@ -9,6 +9,7 @@ import {
   defaultTheme,
   UserIcon,
   CameraIcon,
+  Badge,
 } from 'evergreen-ui'
 import { Link, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -23,6 +24,7 @@ import AccountImages from './Images'
 import AccountHome from './Home'
 import AccountRedeem from './Redeem'
 import AccountSettings from './Settings'
+import AccountMatrix from './Matrix'
 
 import styles from '../../styles/container.scss'
 
@@ -116,6 +118,13 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/matrix"
+              isSelected={pathname.match(/^\/account\/matrix\/?$/gi) && true}
+            >
+              Matrix <Badge color="purple">NEW</Badge>
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/redeem"
               isSelected={pathname.match(/^\/account\/redeem\/?$/gi) && true}
             >
@@ -188,6 +197,7 @@ class AccountIndex extends PureComponent {
               <Route exact path="/account/mail" component={AccountMail} />
               <Route exact path="/account/sharex" component={AccountShareX} />
               <Route exact path="/account/redeem" component={AccountRedeem} />
+              <Route exact path="/account/matrix" component={AccountMatrix} />
             </Switch>
           </Pane>
         </Pane>
