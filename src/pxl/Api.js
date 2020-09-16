@@ -109,7 +109,7 @@ class PxlApi {
       localStorage.removeItem('loggedIn')
       localStorage.removeItem('user')
       store.dispatch(logout())
-      location.reload()
+      //location.reload() likely dont need this, the issue was with App being a PureComponent.
     }
     store.dispatch(login(this.session, res.user))
     return res.user

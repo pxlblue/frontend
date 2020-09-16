@@ -116,3 +116,6 @@ dist
 .pnp.*
 
 build/
+
+# VSC extension consistently adding this to workspace for whatever reason. Dont want to sink time into debugging this
+./config.yml
