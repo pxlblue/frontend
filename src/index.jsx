@@ -8,6 +8,7 @@ import history from './store/history'
 
 import App from './App'
 
+import 'typeface-inter'
 import 'styles/index.scss'
 import pxlApi from 'pxl/Api'
 

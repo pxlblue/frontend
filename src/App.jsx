@@ -212,12 +212,6 @@ class App extends Component {
             history={this.props.history}
             /*className={classNames(styles.root)}*/
           >
-            <Helmet>
-              <link
-                href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-                rel="stylesheet"
-              />
-            </Helmet>
             <Navbar />
             <Pane marginTop={majorScale(2)} className={styles.container}>
               <Switch>
