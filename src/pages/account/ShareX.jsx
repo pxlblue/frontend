@@ -13,44 +13,39 @@ import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
 import Loading from 'components/Loading'
 import Layout from 'components/Layout'
+import DomainSelector from 'components/DomainSelector'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
   session: state.root.session,
 })
 class AccountShareX extends PureComponent {
   state = {
-    loading: true,
-    domains: [],
+    fullDomain: 'i.pxl.blue',
+    subdomain: '',
+    value: 1,
   }
-  async componentDidMount() {
-    let domains = await pxlApi.getDomains()
-    this.setState({ loading: false, domains })
+  domainChange(st) {
+    console.log(st)
+    this.setState(st)
   }
   render() {
     const { session } = this.props
-    const { loading, domains } = this.state
-    if (loading) return <Loading />
 
     return (
       <Layout heading="ShareX config generator">
-        <Text>Select a domain: </Text>
-        <Select
-          name="domain"
-          onChange={(e) => this.setState({ domain: e.target.value })}
-          value={this.state.domain}
-          marginBottom={minorScale(2)}
-        >
-          {domains.map((domain) => (
-            <option value={domain.domain}>{domain.domain}</option>
-          ))}
-        </Select>
+        <DomainSelector
+          width={480}
+          onChange={this.domainChange.bind(this)}
+          value={this.state.value}
+          subdomain={this.state.subdomain}
+        />
         <Pane marginTop={minorScale(1)}>
           <Button
             appearance="primary"
             is="a"
             href={`https://api.pxl.blue/users/@me/generate_sharex_config?auth=${encodeURIComponent(
               session
-            )}&domain=${encodeURIComponent(this.state.domain)}`}
+            )}&domain=${encodeURIComponent(this.state.fullDomain)}`}
             target="_blank"
           >
             Download Config

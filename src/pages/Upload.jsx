@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import Layout from 'components/Layout'
 import pxlApi from 'pxl/Api'
 import Loading from 'components/Loading'
+import DomainSelector from 'components/DomainSelector'
 
 const mapStateToProps = (state) => ({
   pathname: state.router.location.pathname,
@@ -43,37 +44,6 @@ function copyToClipboard(text) {
   }
 }
 
-class DomainSelector extends PureComponent {
-  state = {
-    loading: true,
-    domains: [],
-  }
-  async componentDidMount() {
-    let domains = await pxlApi.getDomains()
-    this.setState({ loading: false, domains, domain: this.props.value })
-  }
-  onChange(e) {
-    this.setState({ domain: e.target.value })
-    this.props.setValue(e.target.value)
-  }
-  render() {
-    const { loading, domains } = this.state
-    if (loading) return <Loading />
-
-    return (
-      <Select
-        name="domain"
-        onChange={this.onChange.bind(this)}
-        value={this.state.domain}
-        marginBottom={majorScale(1)}
-      >
-        {domains.map((domain) => (
-          <option value={domain.domain}>{domain.domain}</option>
-        ))}
-      </Select>
-    )
-  }
-}
 function Image({ file }) {
   const { name, url } = file
   return (
@@ -112,9 +82,33 @@ function Upload(props) {
       ? localStorage.getItem('upload__defaultHost')
       : 'i.pxl.blue'
   )
+  const [subdomain, setSubdomain_] = useState(
+    localStorage.getItem('upload__defaultSubdomain')
+      ? localStorage.getItem('upload__defaultSubdomain')
+      : ''
+  )
+  const [value, setValue_] = useState(
+    localStorage.getItem('upload__defaultValue')
+      ? localStorage.getItem('upload__defaultValue')
+      : '1'
+  )
   const setDomain = (domain) => {
     localStorage.setItem('upload__defaultHost', domain)
     setDomain_(domain)
+  }
+  const setSubdomain = (subdomain) => {
+    localStorage.setItem('upload__defaultSubdomain', subdomain)
+    setSubdomain_(subdomain)
+  }
+  const setValue = (value) => {
+    localStorage.setItem('upload__defaultValue', value)
+    setValue_(value)
+  }
+
+  const setSt = (st) => {
+    setDomain(st.fullDomain)
+    setSubdomain(st.subdomain)
+    setValue(st.value)
   }
   const onDrop = useCallback(async (acceptedFiles) => {
     setUploading(true)
@@ -171,7 +165,12 @@ function Upload(props) {
         <Heading size={300} marginBottom={majorScale(2)}>
           We'll remember this for you
         </Heading>
-        <DomainSelector setValue={setDomain.bind(this)} value={domain} />
+        <DomainSelector
+          width={480}
+          onChange={setSt.bind(this)}
+          value={value}
+          subdomain={subdomain}
+        />
       </Pane>
       <Heading size={600} marginTop={majorScale(2)}>
         Recent uploads
