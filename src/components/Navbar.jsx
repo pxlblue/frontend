@@ -127,7 +127,7 @@ class Navbar extends Component {
         >
           Account
         </Tab>
-        {profile.moderator && (
+        {profile && profile.moderator && (
           <Tab
             is={Link}
             to="/mod"
@@ -137,7 +137,7 @@ class Navbar extends Component {
             Moderator
           </Tab>
         )}
-        {profile.admin && (
+        {profile && profile.admin && (
           <Tab
             is={Link}
             to="/admin"
