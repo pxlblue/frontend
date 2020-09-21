@@ -33,7 +33,7 @@ Sentry.init({
     }),
   ],
   tracesSampleRate: 1.0,
-  release: 'frontend@' + RELEASE,
+  release: RELEASE,
 })
 
 render(
