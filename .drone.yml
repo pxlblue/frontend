@@ -18,6 +18,8 @@ steps:
       SENTRY_AUTH_TOKEN:
         from_secret: sentry_token
       SENTRY_URL: https://sentry.pxl.blue/
+      SENTRY_ORG: pxlblue
+      SENTRY_PROJECT: frontend
     commands:
       - apk update
       - apk add --no-cache git
