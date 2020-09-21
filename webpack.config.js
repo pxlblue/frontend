@@ -69,7 +69,12 @@ module.exports = (env, argv) => {
           },
         },
       },
-      minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [
+        new TerserJSPlugin({
+          sourceMap: true,
+        }),
+        new OptimizeCSSAssetsPlugin({}),
+      ],
     },
     plugins: [
       new webpack.DllReferencePlugin({
@@ -97,6 +102,9 @@ module.exports = (env, argv) => {
       new WorkboxPlugin.GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
+      }),
+      new webpack.SourceMapDevToolPlugin({
+        filename: 'js/[id].[chunkhash].js.map',
       }),
     ],
     module: {
