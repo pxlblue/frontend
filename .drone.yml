@@ -19,6 +19,8 @@ steps:
         from_secret: sentry_token
       SENTRY_URL: https://sentry.pxl.blue/
     commands:
+      - apk update
+      - apk add --no-cache git
       - yarn global add @cloudflare/wrangler
       - wrangler publish --env production
       - npm install -g @sentry/cli --unsafe-perm
