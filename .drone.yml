@@ -15,6 +15,13 @@ steps:
     environment:
       CF_API_TOKEN:
         from_secret: cf_api_token
+      SENTRY_AUTH_TOKEN:
+        from_secret: sentry_token
+      SENTRY_URL: https://sentry.pxl.blue/
     commands:
       - yarn global add @cloudflare/wrangler
       - wrangler publish --env production
+      - npm install -g @sentry/cli --unsafe-perm
+      - export VERSION=`git rev-parse HEAD`
+      - sentry-cli releases set-commits "$VERSION" --auto
+      - sentry-cli releases files $VERSION upload-sourcemaps ./build/js
