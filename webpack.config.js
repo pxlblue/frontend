@@ -133,7 +133,7 @@ module.exports = (env, argv) => {
                   exportLocalsConvention: 'camelCase',
                   localIdentName: isDev()
                     ? '[local]__[hash:base62:5]'
-                    : '[hash:base62:5]',
+                    : '💦💦[hash:base62:5]',
                 },
               },
             },
