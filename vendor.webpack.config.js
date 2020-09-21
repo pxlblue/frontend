@@ -28,6 +28,9 @@ module.exports = (env, argv) => {
         name: 'vendor_lib',
         path: 'build/vendor-manifest.json',
       }),
+      new webpack.SourceMapDevToolPlugin({
+        filename: 'js/vendor.bundle.js.map',
+      }),
     ],
   }
 }
