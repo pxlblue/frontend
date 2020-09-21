@@ -60,6 +60,13 @@ export default class AccountInvites extends Component {
           >
             Create Invite
           </Button>
+          <Button
+            intent="default"
+            onClick={this.throwerroprekhjkgj.bind(this)}
+            marginBottom={majorScale(2)}
+          >
+            test
+          </Button>
         </Tooltip>
         <Table width={'100%'}>
           <Table.Head>
