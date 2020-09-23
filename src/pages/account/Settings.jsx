@@ -143,6 +143,7 @@ class AccountSettings extends PureComponent {
     this.setState({
       settings_discordLink: this.props.profile.settings_discordLink,
       settings_apiIpSecurity: this.props.profile.settings_apiIpSecurity,
+      settings_imageMiddleware: this.props.profile.settings_imageMiddleware
     })
   }
   async onClick() {
@@ -175,6 +176,14 @@ class AccountSettings extends PureComponent {
             setState={this.setState.bind(this)}
             value={this.state.settings_apiIpSecurity}
           />
+          <SettingSwitch
+            name="settings_imageMiddleware"
+            title="Image middleware"
+            description="Server-side rendering of image effects (beta-testers only)"
+            setState={this.setState.bind(this)}
+            value={this.state.settings_imageMiddleware}
+          />
+
           <Pane marginBottom={majorScale(2)}>
             <Heading size={500}>Upload key</Heading>
             <Text>For use in third-party upload scripts</Text>
