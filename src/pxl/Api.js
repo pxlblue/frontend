@@ -1,6 +1,8 @@
 import store from 'store/index'
 import { login, logout } from 'actions'
 import { toaster } from 'evergreen-ui'
+import * as Sentry from '@sentry/react'
+
 //const API_BASE = 'http://localhost:3000'
 //const API_BASE = 'https://api.pxl.blue'
 const API_BASE = S_API_BASE
@@ -110,7 +112,10 @@ class PxlApi {
       localStorage.removeItem('user')
       store.dispatch(logout())
       //location.reload() likely dont need this, the issue was with App being a PureComponent.
+      // TODO: turns out thats still a fucking issue, resolve login issues
     }
+    Sentry.setContext('user', res.user)
+
     store.dispatch(login(this.session, res.user))
     return res.user
   }
