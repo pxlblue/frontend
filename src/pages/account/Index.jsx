@@ -25,6 +25,7 @@ import AccountHome from './Home'
 import AccountRedeem from './Redeem'
 import AccountSettings from './Settings'
 import AccountMatrix from './Matrix'
+import AccountTestimonial from './Testimonial'
 
 import styles from '../../styles/container.scss'
 
@@ -118,10 +119,19 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/testimonial"
+              isSelected={
+                pathname.match(/^\/account\/testimonial\/?$/gi) && true
+              }
+            >
+              Testimonial <Badge color="purple">NEW</Badge>
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/matrix"
               isSelected={pathname.match(/^\/account\/matrix\/?$/gi) && true}
             >
-              Matrix <Badge color="purple">NEW</Badge>
+              Matrix
             </SidebarTab>
             <SidebarTab
               is={Link}
@@ -198,6 +208,11 @@ class AccountIndex extends PureComponent {
               <Route exact path="/account/sharex" component={AccountShareX} />
               <Route exact path="/account/redeem" component={AccountRedeem} />
               <Route exact path="/account/matrix" component={AccountMatrix} />
+              <Route
+                exact
+                path="/account/testimonial"
+                component={AccountTestimonial}
+              />
             </Switch>
           </Pane>
         </Pane>

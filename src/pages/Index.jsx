@@ -1,5 +1,38 @@
-import React, { PureComponent } from 'react'
-import { Pane, Heading, defaultTheme, majorScale, Alert } from 'evergreen-ui'
+import React, { PureComponent, useEffect, useState } from 'react'
+import {
+  Pane,
+  Heading,
+  defaultTheme,
+  majorScale,
+  Alert,
+  Text,
+} from 'evergreen-ui'
+import pxlApi from 'pxl/Api'
+
+import styles from './Index.scss'
+
+function Testimonial() {
+  const [testimonial, setTestimonial] = useState({
+    testimonial: '...',
+    author: '...',
+  })
+  useEffect(() => {
+    pxlApi.http_get('/testimonial', false).then((res) => {
+      if (res.success) {
+        setTestimonial(res.testimonial)
+      }
+    })
+  }, [])
+
+  return (
+    <Pane className={styles.blockquote}>
+      <Pane className={styles.blockquoteText}>
+        <Text size={600}>{testimonial.testimonial}</Text>
+        <Text className={styles.author}>{testimonial.author}</Text>
+      </Pane>
+    </Pane>
+  )
+}
 
 export default class Index extends PureComponent {
   render() {
@@ -18,8 +51,13 @@ export default class Index extends PureComponent {
             <Heading size={600} marginTop={majorScale(1)}>
               A private image uploader and email server
             </Heading>
+            <Pane marginTop={majorScale(1)}>
+              <Text>A testimonial from one of our users:</Text>
+              <Testimonial />
+            </Pane>
           </Pane>
         </Pane>
+
         <Pane
           marginTop={majorScale(1)}
           marginLeft={majorScale(10)}

@@ -1,0 +1,24 @@
+.blockquote {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    border-radius: 4px;
+
+    background: #1070ca;
+  }
+}
+
+.blockquote-text {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em;
+}
+.author {
+  font-style: italic;
+  &::before {
+    content: '— ';
+  }
+}
