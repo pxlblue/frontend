@@ -87,7 +87,7 @@ module.exports = (env, argv) => {
           isDev() ? 'http://localhost:3000' : 'https://api.pxl.blue'
         ),
         DSN: JSON.stringify(
-          'https://d6c26dc4eabf418d8e747a0cdefffa4c@sentry.pxl.blue/2'
+          'https://2cf9c21670c347569fd6bc26699b3702@o335765.ingest.sentry.io/5427379'
         ),
         RELEASE: JSON.stringify(commitSha),
       }),
