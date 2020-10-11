@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, useState } from 'react'
 import {
   Button,
+  Card,
   Heading,
   IconButton,
   majorScale,
@@ -14,6 +15,8 @@ import {
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
 import Layout from 'components/Layout'
+import Loading from 'components/Loading'
+import DomainSelector from 'components/DomainSelector'
 const mapStateToProps = (state) => ({
   profile: state.root.profile,
 })
@@ -135,15 +138,73 @@ class SettingSwitch extends PureComponent {
   }
 }
 
+function RandomDomains({ domains, setState }) {
+  const [domain, setDomain] = useState('i.pxl.blue')
+  const [subdomain, setSubdomain] = useState('')
+  const [value, setValue] = useState('')
+  const setSt = (st) => {
+    setValue(st.value)
+    setDomain(st.fullDomain)
+    setSubdomain(st.subdomain)
+    console.log(st)
+  }
+  const deleteDomain = (domain) => {
+    return () => {
+      let dms = domains.filter((dm) => dm !== domain)
+      setState({ settings_randomDomains: dms })
+    }
+  }
+  const addDomain = () => {
+    setState({ settings_randomDomains: [...domains, domain] })
+  }
+  return (
+    <Pane>
+      <Card
+        elevation={1}
+        hoverElevation={2}
+        padding={majorScale(2)}
+        width={480}
+      >
+        <Heading size={500}>Selected Domains</Heading>
+        {domains.map((domain) => (
+          <Pane display="flex" flexDirection="row" alignItems="center">
+            <Text>{domain}</Text>
+            <IconButton
+              marginLeft={majorScale(2)}
+              intent="danger"
+              icon={'trash'}
+              appearance="minimal"
+              onClick={deleteDomain(domain)}
+            />
+          </Pane>
+        ))}
+      </Card>
+      <Pane>
+        <DomainSelector
+          width={480}
+          onChange={setSt}
+          value={value}
+          subdomain={subdomain}
+        />
+        <Button intent="success" appearance="primary" onClick={addDomain}>
+          Add
+        </Button>
+      </Pane>
+    </Pane>
+  )
+}
+
 class AccountSettings extends PureComponent {
   state = {
     settings_discordLink: false,
+    settings_randomDomains: [],
   }
   componentDidMount() {
     this.setState({
       settings_discordLink: this.props.profile.settings_discordLink,
       settings_apiIpSecurity: this.props.profile.settings_apiIpSecurity,
-      settings_imageMiddleware: this.props.profile.settings_imageMiddleware
+      settings_imageMiddleware: this.props.profile.settings_imageMiddleware,
+      settings_randomDomains: this.props.profile.settings_randomDomains,
     })
   }
   async onClick() {
@@ -183,6 +244,18 @@ class AccountSettings extends PureComponent {
             setState={this.setState.bind(this)}
             value={this.state.settings_imageMiddleware}
           />
+
+          <Pane marginBottom={majorScale(2)}>
+            <Heading size={500}>Random domains</Heading>
+            <Text>
+              Select domains to randomly select when uploading (must redownload
+              config and select Random)
+            </Text>
+            <RandomDomains
+              domains={this.state.settings_randomDomains}
+              setState={this.setState.bind(this)}
+            />
+          </Pane>
 
           <Pane marginBottom={majorScale(2)}>
             <Heading size={500}>Upload key</Heading>
