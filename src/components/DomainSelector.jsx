@@ -19,11 +19,28 @@ export default class DomainSelector extends Component {
     subdomain: '',
     value: 1,
   }
+  static defaultProps = {
+    enableRandomDomain: false,
+  }
   async componentDidMount() {
     let domains = await pxlApi.getDomains()
     let domain = this.state.domain
     if (this.props.value) {
       domain = domains.find((d) => d.id == this.props.value) || domain
+    }
+    if (this.props.enableRandomDomain) {
+      domains = [
+        {
+          id: 'pxl_rand',
+          domain: 'pxl_rand',
+          public: true,
+          system: true,
+          ownerId: 1,
+          disabled: false,
+          wildcard: false,
+        },
+        ...domains,
+      ]
     }
     this.setState({ loading: false, domains, domain })
   }
@@ -61,6 +78,8 @@ export default class DomainSelector extends Component {
       return <Loading />
     }
 
+    const { enableRandomDomain } = this.props
+
     return (
       <Pane width={this.props.width || 240}>
         <Heading size={400}>Select a domain</Heading>
@@ -88,11 +107,19 @@ export default class DomainSelector extends Component {
             marginBottom={majorScale(1)}
             width="fit-content"
           >
-            {domains.map((domain) => (
-              <option key={domain.id} value={domain.id}>
-                {domain.domain}
+            {enableRandomDomain && (
+              <option key="pxl_rand" value="pxl_rand">
+                Random (configure in Settings)
               </option>
-            ))}
+            )}
+            {domains.map(
+              (domain) =>
+                domain.id > 0 && (
+                  <option key={domain.id} value={domain.id}>
+                    {domain.domain}
+                  </option>
+                )
+            )}
           </Select>
         </Pane>
       </Pane>

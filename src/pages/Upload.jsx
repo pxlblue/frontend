@@ -170,6 +170,7 @@ function Upload(props) {
           onChange={setSt.bind(this)}
           value={value}
           subdomain={subdomain}
+          enableRandomDomain
         />
       </Pane>
       <Heading size={600} marginTop={majorScale(2)}>

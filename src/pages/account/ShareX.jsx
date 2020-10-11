@@ -38,6 +38,7 @@ class AccountShareX extends PureComponent {
           onChange={this.domainChange.bind(this)}
           value={this.state.value}
           subdomain={this.state.subdomain}
+          enableRandomDomain
         />
         <Pane marginTop={minorScale(1)}>
           <Button
