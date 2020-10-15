@@ -205,6 +205,9 @@ class AccountSettings extends PureComponent {
       settings_apiIpSecurity: this.props.profile.settings_apiIpSecurity,
       settings_imageMiddleware: this.props.profile.settings_imageMiddleware,
       settings_randomDomains: this.props.profile.settings_randomDomains,
+      settings_secureURLs: this.props.profile.settings_secureURLs,
+      settings_invisibleShortURLs: this.props.profile
+        .settings_invisibleShortURLs,
     })
   }
   async onClick() {
@@ -230,6 +233,22 @@ class AccountSettings extends PureComponent {
             setState={this.setState.bind(this)}
             value={this.state.settings_discordLink}
           />
+
+          <SettingSwitch
+            name="settings_secureURLs"
+            title="Secure URLs"
+            description="Your image URLs will have 16 characters instead of 7 (increasing space to 22^16)"
+            setState={this.setState.bind(this)}
+            value={this.state.settings_secureURLs}
+          />
+          <SettingSwitch
+            name="settings_invisibleShortURLs"
+            title="Invisible Short URLs"
+            description="URLs shortened by pxl.blue will not have anything visible after the slash"
+            setState={this.setState.bind(this)}
+            value={this.state.settings_invisibleShortURLs}
+          />
+
           <SettingSwitch
             name="settings_apiIpSecurity"
             title="Strict IP checking for API keys"
