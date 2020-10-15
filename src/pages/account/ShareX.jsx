@@ -51,6 +51,19 @@ class AccountShareX extends PureComponent {
           >
             Download Config
           </Button>
+
+          <Button
+            appearance="primary"
+            intent="warning"
+            is="a"
+            href={`https://api.pxl.blue/users/@me/generate_shortener_config?auth=${encodeURIComponent(
+              session
+            )}&domain=${encodeURIComponent(this.state.fullDomain)}`}
+            target="_blank"
+            marginLeft={majorScale(1)}
+          >
+            Download URL Shortener Config
+          </Button>
         </Pane>
       </Layout>
     )
