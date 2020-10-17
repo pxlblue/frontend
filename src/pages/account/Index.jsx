@@ -26,6 +26,7 @@ import AccountRedeem from './Redeem'
 import AccountSettings from './Settings'
 import AccountMatrix from './Matrix'
 import AccountTestimonial from './Testimonial'
+import AccountUnlimit from './Unlimit'
 
 import styles from '../../styles/container.scss'
 
@@ -142,6 +143,14 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/unlimit"
+              isSelected={pathname.match(/^\/account\/sharex\/?$/gi) && true}
+            >
+              Unlimit{' '}
+              {this.props.profile.limited && <Badge color="orange">!!</Badge>}
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/mail"
               isSelected={pathname.match(/^\/account\/mail\/?$/gi) && true}
             >
@@ -213,6 +222,7 @@ class AccountIndex extends PureComponent {
                 path="/account/testimonial"
                 component={AccountTestimonial}
               />
+              <Route exact path="/account/unlimit" component={AccountUnlimit} />
             </Switch>
           </Pane>
         </Pane>

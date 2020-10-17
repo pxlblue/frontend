@@ -7,6 +7,7 @@ import {
   TextInputField,
   Heading,
   toaster,
+  Alert,
 } from 'evergreen-ui'
 import { connect } from 'react-redux'
 import pxlApi from 'pxl/Api'
@@ -199,6 +200,16 @@ class AccountHome extends PureComponent {
           Welcome to your account dashboard. Select a tab on your left to get
           started.
         </Text>
+        {this.props.profile.limited && (
+          <Alert intent="warning" marginBottom={majorScale(2)}>
+            <Text>
+              Your account is limited and locked to a Discord user with ID{' '}
+              {this.props.profile.limitedId}. You may unlimit your account by
+              pressing the Unlimit tab on the sidebar and entering a full
+              invite.
+            </Text>
+          </Alert>
+        )}
         <Pane marginTop={majorScale(2)}>
           <Heading size={500}>Identity</Heading>
           <Pane width={500}>
