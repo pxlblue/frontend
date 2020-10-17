@@ -208,6 +208,7 @@ class AccountSettings extends PureComponent {
       settings_secureURLs: this.props.profile.settings_secureURLs,
       settings_invisibleShortURLs: this.props.profile
         .settings_invisibleShortURLs,
+      settings_ipSecurity: this.props.profile.settings_ipSecurity,
     })
   }
   async onClick() {
@@ -247,6 +248,14 @@ class AccountSettings extends PureComponent {
             description="URLs shortened by pxl.blue will not have anything visible after the slash"
             setState={this.setState.bind(this)}
             value={this.state.settings_invisibleShortURLs}
+          />
+
+          <SettingSwitch
+            name="settings_ipSecurity"
+            title="IP checking for sessions"
+            description="Prevents malicious actors from stealing your session and logging in as you without your password. (Only disable if you have a dynamic ip and it is a problem)"
+            setState={this.setState.bind(this)}
+            value={this.state.settings_ipSecurity}
           />
 
           <SettingSwitch
