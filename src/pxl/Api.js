@@ -85,10 +85,11 @@ class PxlApi {
     return res
   }
 
-  async login(username, password) {
+  async login(username, password, rememberMe) {
     let res = await this.http_post('/auth/login', false, {
       username,
       password,
+      rememberMe,
     })
 
     if (!res.success) return res

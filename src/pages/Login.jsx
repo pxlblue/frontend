@@ -22,7 +22,11 @@ const mapStateToProps = (state) => ({
 
 class Login extends PureComponent {
   async onSubmit(values, { setSubmitting }) {
-    const res = await pxlApi.login(values.username, values.password)
+    const res = await pxlApi.login(
+      values.username,
+      values.password,
+      values.rememberMe
+    )
     if (!res.success) {
       // failed to login :(
       toaster.danger('Failed to login', {
