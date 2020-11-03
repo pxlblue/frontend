@@ -21,6 +21,13 @@ const mapStateToProps = (state) => ({
   loggedIn: state.root.loggedIn,
 })
 
+const BLACKLISTED_DOMAINS = [
+  /@outlook/gi,
+  /@hotmail/gi,
+  /@icloud\.com$/gi,
+  /@riseup\.net$/gi,
+]
+
 class Signup extends PureComponent {
   async onSubmit(values, { setSubmitting }) {
     const res = await pxlApi.signup(
@@ -78,6 +85,13 @@ class Signup extends PureComponent {
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
               errors.email = 'Invalid email address'
+            }
+            if (
+              values.email &&
+              BLACKLISTED_DOMAINS.some((regex) => regex.test(values.email))
+            ) {
+              errors.email =
+                'You are trying to sign up using a blacklisted domain, please read the alert at the top of the page'
             }
             if (!values.invite) {
               errors.invite = 'Required'
