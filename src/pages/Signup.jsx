@@ -8,6 +8,7 @@ import {
   toaster,
   Switch,
   majorScale,
+  Alert,
 } from 'evergreen-ui'
 import { Formik } from 'formik'
 import pxlApi from 'pxl/Api'
@@ -51,6 +52,12 @@ class Signup extends PureComponent {
     }
     return (
       <Layout heading="Register" enableMargins>
+        <Alert
+          intent="warning"
+          title="Please do not use @outlook.com, @hotmail.com, @icloud.com, or @riseup.net email addresses as they are known to block our mail, causing you to not be able to verify your account. Please contact relative if you signed up with one of these emails and cannot verify your account."
+          marginBottom={majorScale(2)}
+        />
+
         <Formik
           initialValues={{
             username: '',
