@@ -114,7 +114,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
 build/
 
 # VSC extension consistently adding this to workspace for whatever reason. Dont want to sink time into debugging this
