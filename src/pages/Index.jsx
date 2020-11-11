@@ -68,6 +68,15 @@ export default class Index extends PureComponent {
             or to win invite giveaways!
           </Alert>
         </Pane>
+        <Pane 
+          align="center" 
+          position="fixed" 
+          bottom="20px" 
+          left="50%" 
+          transform="translateX(-50%)"
+        >
+          <Text size={400}>©{new Date().getFullYear()} Relative | Powered by ManyCum™</Text>
+        </Pane>
       </Pane>
     )
   }
