@@ -27,6 +27,7 @@ import AccountSettings from './Settings'
 import AccountMatrix from './Matrix'
 import AccountTestimonial from './Testimonial'
 import AccountUnlimit from './Unlimit'
+import AccountEmbed from './Embed'
 
 import styles from '../../styles/container.scss'
 
@@ -120,12 +121,19 @@ class AccountIndex extends PureComponent {
             </SidebarTab>
             <SidebarTab
               is={Link}
+              to="/account/embed"
+              isSelected={pathname.match(/^\/account\/embed\/?$/gi) && true}
+            >
+              Embeds <Badge color="purple">NEW</Badge>
+            </SidebarTab>
+            <SidebarTab
+              is={Link}
               to="/account/testimonial"
               isSelected={
                 pathname.match(/^\/account\/testimonial\/?$/gi) && true
               }
             >
-              Testimonial <Badge color="purple">NEW</Badge>
+              Testimonial
             </SidebarTab>
             <SidebarTab
               is={Link}
@@ -212,6 +220,7 @@ class AccountIndex extends PureComponent {
                 path="/account/settings"
                 component={AccountSettings}
               />
+              <Route exact path="/account/embed" component={AccountEmbed} />
               <Route exact path="/account/discord" component={AccountDiscord} />
               <Route exact path="/account/mail" component={AccountMail} />
               <Route exact path="/account/sharex" component={AccountShareX} />

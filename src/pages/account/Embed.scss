@@ -1,0 +1,76 @@
+.embedWrapper {
+  display: flex;
+  background: #2f3136;
+  border-left: 4px solid #202225;
+  color: #dcddde;
+  font-size: 1rem;
+  line-height: 1.375rem;
+  white-space: break-spaces;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 288px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.embed-grid {
+  padding: 0.5rem 1rem 1rem 0.75rem;
+  display: inline-grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+}
+
+.embed-author {
+  min-width: 0;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  grid-column: 1/1;
+  margin-top: 8px;
+}
+.embed-author-name {
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.embed-title {
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-block;
+  grid-column: 1/1;
+  margin-top: 8px;
+  color: #fff;
+}
+.embed-title-link {
+  color: #00b0f4;
+  word-break: break-word;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.embed-description {
+  min-width: 0;
+  color: #dcddde;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  font-weight: 400;
+  white-space: pre-line;
+  grid-column: 1/1;
+  margin-top: 8px;
+}
+
+.embedImage {
+  margin-top: 16px;
+  color: #00b0f4;
+  word-break: break-word;
+  text-decoration: none;
+  cursor: pointer;
+  min-width: 0;
+  grid-column: 1/1;
+  border-radius: 4px;
+  contain: paint;
+  display: block;
+  position: relative;
+}
