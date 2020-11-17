@@ -41,6 +41,8 @@ class AccountEmbed extends PureComponent {
   async componentDidMount() {
     let embedSettings = await pxlApi.http_get('/users/@me/embed', true)
     console.log(embedSettings)
+    if (!embedSettings.settings.authorStr)
+      embedSettings.settings.authorStr = this.props.profile.username
     this.setState({ loading: false, ...embedSettings.settings })
   }
   async save() {
@@ -57,7 +59,15 @@ class AccountEmbed extends PureComponent {
   }
   render() {
     const { profile } = this.props
-    const { loading, author, color, description, embed, title } = this.state
+    const {
+      loading,
+      author,
+      authorStr,
+      color,
+      description,
+      embed,
+      title,
+    } = this.state
     if (loading) return <Loading />
     return (
       <Layout heading="Embeds">
@@ -77,6 +87,12 @@ class AccountEmbed extends PureComponent {
             onChange={this.onChange('author', true)}
           />
 
+          <TextInputField
+            label="Embed author"
+            value={authorStr}
+            disabled={!author}
+            onChange={this.onChange('authorStr')}
+          />
           <TextInputField
             label="Embed title"
             value={title}
@@ -104,9 +120,7 @@ class AccountEmbed extends PureComponent {
             <div className={styles.embedGrid}>
               {author && (
                 <div className={styles.embedAuthor}>
-                  <span className={styles.embedAuthorName}>
-                    {profile.username}
-                  </span>
+                  <span className={styles.embedAuthorName}>{authorStr}</span>
                 </div>
               )}
               <div className={styles.embedTitle}>
