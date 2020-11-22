@@ -24,6 +24,41 @@ addEventListener('fetch', (event) => {
   }
 })
 
+const IP_MAP = [
+  '95.217.185.139',
+  '212.129.21.56',
+  '45.146.6.82',
+  '46.4.143.48',
+  '51.89.1.61',
+  '194.156.98.193',
+  '185.105.238.209',
+  '45.91.250.221',
+  '185.25.204.60',
+  '94.154.1.7',
+  '185.120.77.165',
+  '88.119.179.10',
+  '178.17.171.235',
+  '185.209.161.169',
+  '185.213.209.92',
+  '185.159.82.88',
+  '93.170.128.167',
+  '139.99.75.183',
+  '185.29.8.135',
+  '179.43.148.195',
+  '185.169.54.231',
+  '45.9.250.137',
+  '185.86.77.126',
+  '192.157.233.160',
+  '5.253.30.82',
+  '172.246.126.50',
+]
+
+function getStatusForIp(ip) {
+  let idx = IP_MAP.indexOf(ip)
+  if (idx === -1) idx = 18
+  return parseInt(`4${idx.toString().padStart(2, '0')}`)
+}
+
 async function handleEvent(event) {
   const request = event.request
   if (
@@ -47,7 +82,9 @@ async function handleEvent(event) {
         })
       }
     }
-    return new Response('No.', { status: 418 })
+    return new Response('No.', {
+      status: getStatusForIp(request.headers.get('cf-connecting-ip')),
+    })
   }
 
   const url = new URL(event.request.url)
