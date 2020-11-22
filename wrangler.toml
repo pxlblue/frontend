@@ -16,3 +16,6 @@ route = "staging.pxl.blue/*"
 [env.production]
 name = "frontend"
 route = "pxl.blue/*"
+kv_namespaces = [
+  { binding = "__CHECKHOST", id = "4a24e57ab57a4f7a818a798fa0bf577c" }
+]

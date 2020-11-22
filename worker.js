@@ -25,6 +25,31 @@ addEventListener('fetch', (event) => {
 })
 
 async function handleEvent(event) {
+  const request = event.request
+  if (
+    request.headers.has('user-agent') &&
+    request.headers.get('user-agent') == 'CheckHost (https://check-host.net/)'
+  ) {
+    let reportUrl =
+      request.headers.has('referer') && request.headers.get('referer')
+    if (reportUrl) {
+      let kvRes = await __CHECKHOST.get(reportUrl)
+      if (kvRes === null) {
+        await __CHECKHOST.put(reportUrl, 'handled')
+        await fetch(DISCORD_WEBHOOK, {
+          headers: {
+            'content-type': 'application/json',
+          },
+          method: 'POST',
+          body: JSON.stringify({
+            content: `Someone tried testing **pxl.blue** on check-host.net: Report url: <${reportUrl}>`,
+          }),
+        })
+      }
+    }
+    return new Response('No.', { status: 418 })
+  }
+
   const url = new URL(event.request.url)
   let options = {}
 
