@@ -94,7 +94,7 @@ class AccountIndex extends PureComponent {
           flexDirection="row"
           width={'100%'}
           marginTop={majorScale(4)}
-          marginLeft={majorScale(2)}
+          paddingLeft={majorScale(2)}
           className={classNames(styles['account-container'])}
         >
           <TabNavigation width={'25%'} className={classNames(styles['tabs'])}>
