@@ -47,6 +47,7 @@ class PxlApi {
       if (err.name === 'TypeError') {
         location.href = 'https://api.pxl.blue/challenge'
       }
+      throw err
     }
     let res = await resp.json()
     return res
