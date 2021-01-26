@@ -40,7 +40,14 @@ class PxlApi {
     if (requiresAuth) {
       opts.headers['Authorization'] = this.session
     }
-    let resp = await fetch(`${API_BASE}${endpoint}`, opts)
+    let resp
+    try {
+      resp = await fetch(`${API_BASE}${endpoint}`, opts)
+    } catch (err) {
+      if (err.name === 'TypeError') {
+        location.href = 'https://api.pxl.blue/challenge'
+      }
+    }
     let res = await resp.json()
     return res
   }
