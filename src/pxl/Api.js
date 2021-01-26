@@ -32,6 +32,7 @@ class PxlApi {
         'User-Agent': 'pxlblue-frontend/1.0',
       },
       method: method.toUpperCase(),
+      credentials: 'include',
     }
     if (method !== 'GET' && body) {
       opts.headers['Content-Type'] = 'application/json'
