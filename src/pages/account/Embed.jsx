@@ -5,7 +5,6 @@ import {
   Button,
   minorScale,
   toaster,
-  Alert,
   majorScale,
   Heading,
   TextInputField,
@@ -128,7 +127,7 @@ class AccountEmbed extends PureComponent {
               </div>
               <div className={styles.embedDescription}>{description}</div>
               <a className={styles.embedImage}>
-                <img src="https://send.thigh.pics/ecbEf65.png" />
+                <img src="https://catgirls.shop/emFb849d5ad0B92aa9.png" />
               </a>
             </div>
           </div>
